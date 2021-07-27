@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+
+    <title>sign up</title>
+    
+</head>
+<body>
+    <form action="{% url 'signup' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+        
+        <input type="submit" value="envoyer"/>
+        {{mess}}
+    </form>
+    {% if mess == "ERREUR" %} 
+        <p>ERREUR DE CMD</p>
+    {% endif %} 
+    <a href="{% url 'home' %}">home</a>
+</body>
+</html>

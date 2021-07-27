@@ -1,0 +1,29 @@
+{% load fun %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+
+
+    <title>Forum</title>
+    
+</head>
+<body>
+    {% if err %} 
+    <h2>INFO: Vous ne pouvez envoyer de message sans vous connectez</h2>
+    {% else %}
+    <form action="{% url 'forum' %}" method="post">
+        {% csrf_token %}
+        {{forum_form.as_p}}
+        <input type="submit" value="envoyer"/>
+    </form>
+    {% endif %}
+
+    {% for obj in forum %} 
+    <p><a href="{% get_url obj.user c %}"> <img class="logo" src="{% get_img obj.user c %}" width="50" height="50"></a> <span>{{obj.user}} at {{obj.date}} : {{obj.mess}}</span></p>
+    {% endfor %}
+    
+    <a href="http://127.0.0.1:8000/home/">home</a>
+</body>
+</html>

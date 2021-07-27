@@ -1,0 +1,19 @@
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    </head>
+    <body>
+        {% block DIV %}
+        <div>
+
+            <form action="{% url 'write_mess' %}" method="post" style="text-align: center;">
+                {% csrf_token %}
+                {{formblogforum.as_p}}
+                <input type="submit" value="envoyer"/>
+            </form>
+        </div>
+        {% endblock %}                                                                             
+        
+    </body>
+</html>

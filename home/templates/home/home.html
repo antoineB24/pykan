@@ -1,0 +1,45 @@
+{% load fun %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>PY Forum</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+
+    <style>
+        #user
+        {
+            text-align: right;
+            size: 150px;
+        }
+        #photos{
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenue sur Py Forum</h1>
+    
+    <p>{% if user == "" %}
+        <a href="{% url 'login' %}">se connecter</a>
+        <a href="{% url 'signup' %}">s'inscrire</a>
+        <h1 id="user"></h1>
+
+       {% else %} 
+       
+       <p style="text-align: right;"><img src="{{obj.img_profil.url}}" width="100" height="100" style="text-align: right;"></p>
+       <a href="{% url 'profil' obj.id_name %}"><h1 id="user"><em><i>{{user}}</i></em></h1></a>
+
+        <a class="button" href="{% url 'deconecte' %}">deconnecter</a>
+       {% endif %}
+       <p>
+       <a class="button" href="http://127.0.0.1:8000/forum/">forum</a>
+       <a class="button" href="http://127.0.0.1:8000/blog/">blog</a>
+       {% if user == "" %}
+       {% else %}
+       <a class="button" href="http://127.0.0.1:8000/messenger/">messenger</a>
+       {% endif %}
+       </p>
+    </p>
+</body>
+</html>

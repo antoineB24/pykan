@@ -1,0 +1,65 @@
+
+{% load static %}
+{% load utills_ %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Blog</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <link rel="stylesheet" href="{% static '/blog/css/blog.css' %}"/>
+
+</head>
+<body>
+    
+    {% if mess.0 %} 
+    <h2>{{mess.1}}</h2>
+    {% else %} 
+    {# <iframe src="{% url 'create_blog'%}" allow="{% url 'home'"></iframe> #}
+    {% csrf_token %}
+    {% _load_html 'create_blog'  as n %}
+    {{n|safe}}
+    {% endif %}
+
+    
+    <!--<p>{{mess.0}} {{mess.1}}</p> -->
+    <p>les Blog : <br/> </p>
+    <div id="bloglist">
+    {% for a in range1 %}
+    
+    <p class="blog" style="text-align: center;"><strong style="size:100px;">{{a.author}}</strong> at {{a.date}} :
+    <h1 style="text-align: center;"><i>{{a.name}}</i></h1>
+    <p style="text-align: center;" > {{a.body}}</p>
+    <p style="text-align: center;">------------------------------------</p>
+    <p>commentaire:
+        {% for b in range2 %}
+            {% if b.blog == a %}
+            <p style="text-align: center;">{{b.author}} at {{b.date}} : {{b.body}}</p>
+            {% endif %}
+        {% empty %}
+            pas de commentaire
+        {% endfor %}
+    </p>
+    <p style="text-align: center;">------------------------------------</p>
+
+
+
+    {% endfor %}
+    </div>
+    
+    {% if messErr.0 %} 
+    <p>{{messErr.1}}</p>
+    {% else %} 
+    {% _load_html 'write_mess'  as n %}
+    {{n|safe}}
+    {% endif %} 
+    <a href="http://127.0.0.1:8000/home/">home</a>
+    <!--<style>
+        .blog
+        {
+            text-align: center;
+        }
+    </style>-->
+
+</body>
+</html>

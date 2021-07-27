@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+
+    <title>login</title>
+    
+</head>
+<body>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="envoyer" />
+    </form>
+    <a href="{% url 'home'%}">home</a>
+    <p>{{message.0}}</p>
+</body>
+</html>

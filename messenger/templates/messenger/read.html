@@ -1,0 +1,14 @@
+{% include  'messenger.html' %}
+
+<div style="text-align: center;size: 50px;">
+    <h1>Lire un/des message(s)</h1>
+    {% for q in obj %} 
+    <p>de {{q.author}} à {{q.date}} :</p>
+    <p>sujet : {{q.sujet}}<br/></p>
+    {{q.body}}<br/>
+    --------------------------------------------------
+    {% empty %}
+    <p>pas de message</p>
+    {% endfor %}
+</div>
+<a href="http://127.0.0.1:8000/home/">home</a>

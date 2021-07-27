@@ -1,0 +1,20 @@
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    </head>
+    <body>
+        <p>action: </p>
+        <ol>
+            <li><a class="button" href="{% url 'send'%}">show send</a></li>
+            {% if nb_no_read %}
+            <li><a class="button" href="{% url 'read'%}">read message({{nb_no_read}})</a></li>
+            {% else %}
+            <li><a class="button" href="{% url 'read'%}">read message</a></li>
+            {% endif %}
+
+            <li><a class="button" href="{% url 'write' %}">write message</a></li>
+        </ol>
+
+    </body>
+</html>
