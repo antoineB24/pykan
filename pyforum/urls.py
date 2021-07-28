@@ -28,6 +28,6 @@ urlpatterns = [
     path('', RedirectView.as_view(url="/home/")),
 ]
 
-urlpatterns += static.static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static.static('static/', document_root='pyforum/static/')
 urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

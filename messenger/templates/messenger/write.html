@@ -1,5 +1,6 @@
-{% include './messenger.html' %}
+{% extends './messenger.html' %}
 
+{% block content %}
 {% if send %}
 
 
@@ -31,3 +32,4 @@
 </script>
 {% endif %}
 <a href="http://127.0.0.1:8000/home/">home</a>
+{% endblock %}

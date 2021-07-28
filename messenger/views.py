@@ -12,6 +12,9 @@ from home.models import Compte
 def messenger(request):
     nb_no_read = 0
     n=open('data.dt');user=n.read();n.close()
+    
+    obj1 = Compte.objects.get(name=user)
+    
     obj = Messenger.objects.filter(destinataire=user)
     for i in obj:
         if i.new:
@@ -22,12 +25,15 @@ def messenger(request):
 
 def send(request):
     n=open('data.dt');user=n.read();n.close()
+    obj1 = Compte.objects.get(name=user)
+
     obj = Messenger.objects.filter(author=user)
     return render(request, 'send.html', locals())
 
 
 def read(request):
     n=open('data.dt');user=n.read();n.close()
+    obj1 = Compte.objects.get(name=user)
     obj = Messenger.objects.filter(destinataire=user)
     for i in obj:
         i.new = False 
@@ -38,6 +44,7 @@ def read(request):
 def write(request):
     forms = MessengerForm(request.POST or None)
     n=open('data.dt');user=n.read();n.close()
+    obj1 = Compte.objects.get(name=user)
     send = False
     if forms.is_valid():
         send = False

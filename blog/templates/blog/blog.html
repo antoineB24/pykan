@@ -18,21 +18,37 @@
             <a class="navbar-brand" href="http://127.0.0.1:8000/home/">home</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
+            {% if not err %}
             <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/e7cWxFV/">profil</a>
+            {% endif %}
         </div>
+        {% if not err %}
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
 
                 <li class="nav-item"><img src="{{obj.img_profil.url}}" height="75" width="75"></li>
                 <li class="nav-item"><a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{user}}</a></li>
         </div>
+        {% endif %}
     </nav>
     <div class="jumbotron">
         <h2>Bienvenue dans l'Application Blog</h2>
     </div>
-    {% if mess.0 %} 
-    <h2>{{mess.1}}</h2>
+    {% if err%} 
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert1">
+            <h2>INFO: il faut se connecter pour créer des blog </h2>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="button_close1">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <script type="text/javascript">
+                n = document.getElementById('button_close1')
+                q = document.getElementById('alert1')
+                n.addEventListener('click', event => {
+                    q.style.visibility = "hidden"
+                })
+            </script>
+        </div>
     {% else %} 
     {# <iframe src="{% url 'create_blog'%}" allow="{% url 'home'"></iframe> #}
     {% _load_html 'create_blog'  as n %}
@@ -69,8 +85,20 @@
     {% endfor %}
     </div>
     
-    {% if messErr.0 %} 
-    <p>{{messErr.1}}</p>
+    {% if err %} 
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert2">
+            <h2>INFO: il faut se connecter pour créer des blog </h2>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="button_close2">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <script type="text/javascript">
+                n = document.getElementById('button_close2')
+                q = document.getElementById('alert2')
+                n.addEventListener('click', event => {
+                    q.style.visibility = "hidden"
+                })
+            </script>
+        </div>
     {% else %} 
     {% _load_html 'write_mess'  as n %}
     {{n|safe}}

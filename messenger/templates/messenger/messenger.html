@@ -1,4 +1,4 @@
-
+{% load static %}
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    </head>
@@ -9,7 +9,7 @@
             <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
-            <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/e7cWxFV/">profil</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/{{obj1.id_name}}/">profil</a>
             <ul class="nav justify-content-end">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'send'%}">show send</a>
@@ -28,10 +28,56 @@
                     <a class="nav-link" href="{% url 'write' %}">write message</a>
                 </li>
             </ul>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+                        <img src="{{obj1.img_profil.url}}" height="75" width="75">
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{user}}</a>
+                    </li>
+            </ul>
+        </div>
         </nav>
         <div class="jumbotron">
             <h2>Bienvenu dans l'application messenger</h2>
         </div>
+        {% block content %}
+        <div class="row">
+            <div class="card" style="width: 24rem">
+                <img class="card-img-top" src="{% static 'messenger/read_logo.png' %}">
+                <div class="card-body">
+                    <h1 class="card-title"> Lire vos message </h1>
+                    <p class="card-text">lire des messages que des personnes t'envoient et amusez vous bien</p>
+                    {% if nb_no_read %}
+                    <a class="btn btn-primary" href="{% url 'read'%}">read({{nb_no_read}})</a>
+                    {% else %}
+                    <a class="btn btn-primary" href="{% url 'read' %}">read</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card" style="width: 24rem">
+                <img class="card-img-top" src="{% static 'messenger/write_logo.png' %}">
+                <div class="card-body">
+                    <h1 class="card-title"> Écrire des message </h1>
+                    <p class="card-text">écrire des messages à des personnes et amusez vous bien</p>
+                    <a class="btn btn-primary" href="{% url 'read'%}">write</a>
+
+                </div>
+            </div>
+            <div class="card" style="width: 24rem">
+                <img class="card-img-top" src="{% static 'messenger/send_logo.png' %}">
+                <div class="card-body">
+                    <h1 class="card-title"> Lire vos message envoyé </h1>
+                    <p class="card-text">lire vos messages envoyé destiné à quelqun et amusez vous bien</p>
+                    <a class="btn btn-primary" href="{% url 'read'%}">send</a>
+
+                </div>
+            </div>
+
+        </div>
+        {% endblock %}
 
     </body>
 </html>

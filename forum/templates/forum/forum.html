@@ -16,12 +16,18 @@
             <a class="navbar-brand" href="http://127.0.0.1:8000/home/">home</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
-            <h3>Forum</h3>
             {% if not err %}
             <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/{{idname}}/">profil</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/deconecte/">deconecter</a>
             {% endif %}
+            <div class="mx-auto order-0">
+                <h3>Forum</h3>
+            </div>
         </div>
+
+
+        
 
         {% if not  err %}
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">

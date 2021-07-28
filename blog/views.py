@@ -26,8 +26,11 @@ def create_blog(request):
     return render(request, 'create_blog.html', locals())
 def blog(request):    
     n=open('data.dt');user=n.read();n.close()
-    obj = Compte.objects.get(name=user)
-    idname = obj.id_name
+    if user:
+        obj = Compte.objects.get(name=user)
+        idname = obj.id_name
+    else:
+        err = True
     body_blog = Blog.objects.all()
     
     body_blog_forum = ForumBlog.blog

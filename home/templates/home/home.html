@@ -1,4 +1,5 @@
 {% load fun %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,22 +27,68 @@
         <a href="{% url 'login' %}">se connecter</a>
         <a href="{% url 'signup' %}">s'inscrire</a>
         <h1 id="user"></h1>
+    {% endif %}
 
-       {% else %} 
        
-       <p style="text-align: right;"><img src="{{obj.img_profil.url}}" width="100" height="100" style="text-align: right;"></p>
-       <a href="{% url 'profil' obj.id_name %}"><h1 id="user"><em><i>{{user}}</i></em></h1></a>
+    <div class="row">
+        
+        <div class="card" style="width: 16rem;">
+            <img class="card-img-top" src="{% static 'home/forum_logo.jpeg' %}">
+            <div class="card-body">
+                <h5 class="card-title">Forum</h5>
+                <p class="card-text">allez sur le forum pour discuter de divers chose et bien rigolé!!!</p>
+                <a class="btn btn-primary" href="http://127.0.0.1:8000/forum/">forum</a>
+            </div>
+            
+        </div>
+        
+        <div class="card" style="width: 16rem;">
+            <img class="card-img-top" src="{% static 'home/blog_logo.png' %}">
+            <div class="card-body">
+                <h5 class="card-title">Blog</h5>
+                <p class="card-text">allez voir et crée des blog puis les commentez</p>
+                <a class="btn btn-primary" href="http://127.0.0.1:8000/blog/">blog</a>
+            </div>
+        </div>
+        {% if user != "" %}
 
-        <a class="button" href="{% url 'deconecte' %}">deconnecter</a>
-       {% endif %}
-       <p>
-       <a class="button" href="http://127.0.0.1:8000/forum/">forum</a>
-       <a class="button" href="http://127.0.0.1:8000/blog/">blog</a>
-       {% if user == "" %}
-       {% else %}
-       <a class="button" href="http://127.0.0.1:8000/messenger/">messenger</a>
-       {% endif %}
-       </p>
-    </p>
+        <div class="card" style="width: 16rem">
+            <img class="card-img-top" src="{% static 'home/messenger_logo.png' %}">
+            <div class="card-body">
+                <h5 class="card-title">Messenger</h5>
+                <p class="card-body">envoyez des messages les un les autres</p>
+                <a class="btn btn-primary" href="http://127.0.0.1:8000/messenger/">Messenger</a>
+            </div>
+        </div>
+        <div class="card" style="width: 16rem;">
+            <img class="card-img-top" src="{% static 'home/deconnect_logo.png' %}">
+            <div class="card-body">
+                <h5 class="card-title">En Revoir</h5>
+                <p class="card-text">en revoir nous sommes triste que tu te deconnecte</p>
+                <a class="btn btn-primary" href="{% url 'deconecte' %}">deconnecter</a>
+            </div>
+        </div>
+        <div class="card" style="width: 16 rem;">
+            <img class="card-img-top" src="{{obj.img_profil.url}}">
+            <div class="card-header">
+                <h1 id="user"><em><i>{{user}}</i></em></h1>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Profil</h5>
+                <p class="card-text">allez voir votre profil</p>
+                <a class="btn btn-primary" href="{% url 'profil' obj.id_name %}">profil</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="card" style="width: 16 rem;">
+            <img class="card-img-top" src="{% static 'home/login_logo.png' %}"  >
+            <div class="card-body">
+                <h1 class="card-title">Se connecter</h1>
+                <p class="card-text">connectez vous pour être  parmis nous !! ca va être super chouette !!</p>
+                <a class="btn btn-primary" href="{% url 'login' %}">se connecter</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
