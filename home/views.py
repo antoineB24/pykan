@@ -85,9 +85,13 @@ def deconecte(request):
 def profil(request, idname):
     
     n=open('data.dt');user=n.read();n.close()
-    #obj = get_object_or_404(models.Compte, id_name=idname)
-    obj = models.Compte.objects.get(id_name=idname)
+    err = False
+    if not user:
+        err = True
+    obj = get_object_or_404(models.Compte, id_name=idname)
+    #obj = models.Compte.objects.get(id_name=idname)
     user_co = False
+
     if(obj.name == user) :
         user_co = True
     image_input = models.get_ChangeImgage()(request.POST or None, request.FILES)

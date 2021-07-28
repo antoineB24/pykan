@@ -1,11 +1,38 @@
 {% load MyFun %}
 <html>
     <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <title>profil</title>
     </head>
     <body>
+        <nav class="navbar navbar-expand bg-dark">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/">home</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
+            {% if not err %}
+            <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/{{idname}}/">profil</a>
+            {% endif %}
+        </div>
+
+        {% if not  err %}
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <img src="{{obj.img_profil.url}}" height="75" width="75">
+                </li>
+                <li class="nav-item">
+                    <a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{user}}</a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+    </nav>
+    
         <p style="text-align: center;"><img src="{{obj.img_profil.url}}" width="200" height="200"></p>
         <p style="text-align: center;" >{{obj.name}}</p>
 

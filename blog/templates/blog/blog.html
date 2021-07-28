@@ -6,17 +6,35 @@
 <head>
     <meta charset='utf-8'>
     <title>Blog</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static '/blog/css/blog.css' %}"/>
 
 </head>
 <body>
-    
+    <nav class="navbar navbar-expand bg-dark">
+        
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/">home</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/e7cWxFV/">profil</a>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item"><img src="{{obj.img_profil.url}}" height="75" width="75"></li>
+                <li class="nav-item"><a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{user}}</a></li>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        <h2>Bienvenue dans l'Application Blog</h2>
+    </div>
     {% if mess.0 %} 
     <h2>{{mess.1}}</h2>
     {% else %} 
     {# <iframe src="{% url 'create_blog'%}" allow="{% url 'home'"></iframe> #}
-    {% csrf_token %}
     {% _load_html 'create_blog'  as n %}
     {{n|safe}}
     {% endif %}
@@ -24,26 +42,30 @@
     
     <!--<p>{{mess.0}} {{mess.1}}</p> -->
     <p>les Blog : <br/> </p>
-    <div id="bloglist">
+    <div class="container">
     {% for a in range1 %}
-    
-    <p class="blog" style="text-align: center;"><strong style="size:100px;">{{a.author}}</strong> at {{a.date}} :
-    <h1 style="text-align: center;"><i>{{a.name}}</i></h1>
-    <p style="text-align: center;" > {{a.body}}</p>
-    <p style="text-align: center;">------------------------------------</p>
-    <p>commentaire:
-        {% for b in range2 %}
-            {% if b.blog == a %}
-            <p style="text-align: center;">{{b.author}} at {{b.date}} : {{b.body}}</p>
-            {% endif %}
-        {% empty %}
+    <div class="card">
+        
+        <div class="card-body">
+            
+        
+            <div class="card-title"><h2 style="text-align: center;">{{a.name}}</h2></div>
+            <div class="card-subtitle mb-2 text-muted"><h3  style="text-align: center;">{{a.author}} at {{a.date}} :</h3></div>
+            
+            <div class="card-text"> <h2>{{a.body}}</h2></div>
+
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for b in range2 %}
+                {% if b.blog == a %}
+                    <li class="list-group-item">{{b.author}} at {{b.date}} : {{b.body}}</p></li>
+                {% endif %}
+            {% empty %}
             pas de commentaire
-        {% endfor %}
-    </p>
-    <p style="text-align: center;">------------------------------------</p>
+            {% endfor %}
+        </ul>
 
-
-
+    </div>
     {% endfor %}
     </div>
     

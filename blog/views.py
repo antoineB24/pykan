@@ -1,8 +1,11 @@
-from typing import Pattern
-from django.forms.widgets import NullBooleanSelect
+import sys
+sys.path.append('..')
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
+from home.models import Compte
+
 
 mess = (False, "")
 messErr = (False, "")
@@ -22,13 +25,16 @@ def create_blog(request):
 
     return render(request, 'create_blog.html', locals())
 def blog(request):    
+    n=open('data.dt');user=n.read();n.close()
+    obj = Compte.objects.get(name=user)
+    idname = obj.id_name
     body_blog = Blog.objects.all()
     
     body_blog_forum = ForumBlog.blog
     
     range1 = Blog.objects.all()
     range2 = ForumBlog.objects.all()
-    print(Blog.objects.all())
+
     local = locals()
     local.update({'mess': mess})
     local.update({'messErr': messErr})

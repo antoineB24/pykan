@@ -12,3 +12,9 @@ def get_url(user, compte):
 def get_img(user, compte):
     obj = compte.get(name=user)
     return obj.img_profil.url
+
+    
+
+@register.filter
+def to_bool(var):
+    return bool(var)

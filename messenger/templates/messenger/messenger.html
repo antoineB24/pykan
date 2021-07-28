@@ -1,20 +1,37 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
-    </head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    </head>
     <body>
-        <p>action: </p>
-        <ol>
-            <li><a class="button" href="{% url 'send'%}">show send</a></li>
-            {% if nb_no_read %}
-            <li><a class="button" href="{% url 'read'%}">read message({{nb_no_read}})</a></li>
-            {% else %}
-            <li><a class="button" href="{% url 'read'%}">read message</a></li>
-            {% endif %}
+        <nav class="navbar navbar-expand bg-dark">
+        
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/">home</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/e7cWxFV/">profil</a>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'send'%}">show send</a>
+                </li>
+                {% if nb_no_read %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'read'%}">read message({{nb_no_read}})</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'read'%}">read message</a>
+                </li>
+                {% endif %}
 
-            <li><a class="button" href="{% url 'write' %}">write message</a></li>
-        </ol>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'write' %}">write message</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="jumbotron">
+            <h2>Bienvenu dans l'application messenger</h2>
+        </div>
 
     </body>
 </html>

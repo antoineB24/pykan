@@ -1,11 +1,21 @@
 {% include './messenger.html' %}
 
-<div style="text-align: center;">
+<div class="container">
     <h1>Voir un message envoyé</h1>
     {% for q in obj %} 
-    <h3> à <i><strong>{{q.destinataire}}</strong></i> at <i>{{q.date}}</i><br/> subject : {{q.sujet}} </h3>
-    <p style="size: 100px;">{{q.body}}</p>
-    <p>--------------------------------------------------</p>
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h2 style="text-align: center;">{{q.sujet}}</h2>
+            </div>
+            <div class="card-subtitle mb-2 text-muted">
+                <h3 style="text-align: center;">à {{q.destinataire}} at {{q.date}}</h3>
+            </div>
+            <div class="card-text">
+                <h3>{{q.body}}</h3>
+            </div>
+        </div>
+
     {% empty %}
     <p>pas de message envoyé</p>
     {% endfor %}

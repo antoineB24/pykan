@@ -3,6 +3,7 @@ import sys
 from django.db import models
 from django.utils import timezone
 from django import forms
+from django.forms.utils import ErrorList
 
 
 # Create your models here.
@@ -31,3 +32,5 @@ class MessengerForm(forms.Form):
     destinataire = forms.CharField(max_length=50, required=True)
     subject = forms.CharField(max_length=50, required=True)
     body = forms.CharField(max_length=1000, widget=forms.Textarea, required=True)
+
+

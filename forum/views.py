@@ -30,6 +30,11 @@ def forum(request):
 
     forum = Forum.objects.all()
     c = Compte.objects
+    if not err:
+        obj = c.get(name=user)
+    
+        idname = obj.id_name
+    
 
     return render(request, "forum.html", locals())
 
