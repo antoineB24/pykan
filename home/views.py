@@ -12,6 +12,9 @@ import string, random as rand
 make_id = lambda n : ''.join([rand.choice(string.ascii_letters + '1234567890') for i in range(n)])
 in_fun = lambda a, b : [a == i for i in b]
 
+def get_(req, name):
+    return req.POST.get(name)
+
 def home(request):
     #
     n = open("data.dt", "r")
@@ -26,13 +29,24 @@ def home(request):
     return render(request, "home.html", locals())
 
 def login(request):
-    form = models.Login(request.POST or None)
-    compte = models.recup_data_login(form)
-    if compte == False:
-        message = ("erreur", False)
-    else:
-        
-        n = open("data.dt", 'w');n.write(compte.name);n.close()
+    
+
+
+    if request.method == "POST":
+
+        if request.POST.get('email') == '':
+            return render(request, "login.html", locals())
+        if request.POST.get('name') == '':
+            return render(request, "login.html", locals())
+        if len(models.Compte.objects.filter(name=request.POST.get('name'))) !=  1:
+            return render(request, "login.html", locals())
+        if request.POST.get('pass1') == '':
+            return render(request, "login.html", locals())
+        if models.Compte.objects.get(name=request.POST.get('name')).secrete != request.POST.get('pass1'):
+            return render(request, "login.html", locals())
+
+
+        n = open("data.dt", 'w');n.write(request.POST.get('name'));n.close()
         #print(compte.name)
         message = ("", True)
         #client.send(bytes(compte.name))
@@ -42,14 +56,23 @@ def login(request):
 
 def signup(request):
     
-    form = models.Signup(request.POST or None)
-    send = False
-    mess = ""
-    if form.is_valid():
-    
-        pass1 = form.cleaned_data['pass_']
-        name = form.cleaned_data['name']
-        pass2 = form.cleaned_data['pass2']
+
+
+
+    if request.method == "POST" :
+
+        if get_(request, 'email') == '': 
+             
+            return render(request, "signup.html", locals())
+        if get_(request, 'name') == '' or len(models.Compte.objects.filter(name=get_(request, 'name'))): return render(request, "signup.html", locals())
+        if get_(request, 'pass1') == '' or get_(request, 'pass2') == '' or get_(request, 'pass1') != get_(request, 'pass2'): 
+            return render(request, "signup.html", locals())
+
+
+        pass1 = get_(request, 'pass1') #form.cleaned_data['pass_']
+        name =  get_(request, 'name') #form.cleaned_data['name']
+        pass2 = get_(request, 'pass2') #form.cleaned_data['pass2']
+        email = get_(request, 'email')
         mess = ""
         inobj = False
         for obj in models.Compte.objects.all():
@@ -61,19 +84,12 @@ def signup(request):
             id_ = make_id(7)
         
 
-        if pass1 != pass2 or inobj: return redirect("signup")
-        else:
-            n = models.Compte(secrete=pass1, name=name, id_name=id_)
-            n.save()
+        q = open("data.dt", 'w');q.write(name);q.close()
+
+        n = models.Compte(secrete=pass1, name=name, id_name=id_, email=email)
+        n.save()
+        return redirect('home')
         
-        models.USER = name
-        n = open("data.dt", 'w');n.write(name);n.close()
-        #client.send(bytes(name))
-
-
-        print(name)
-
-        return redirect("home")
             
     return render(request, "signup.html", locals())
 

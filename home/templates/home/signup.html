@@ -1,23 +1,69 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
 
-    <title>sign up</title>
+
+{% block signup %}
+{% load static %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Signin</title>
+
     
-</head>
-<body>
-    <form action="{% url 'signup' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p}}
-        
-        <input type="submit" value="envoyer"/>
-        {{mess}}
-    </form>
-    {% if mess == "ERREUR" %} 
-        <p>ERREUR DE CMD</p>
-    {% endif %} 
-    <a href="{% url 'home' %}">home</a>
-</body>
+
+    <!-- Bootstrap core CSS -->
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{% static 'home/signin.css' %}" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+<main class="form-signin">
+  <form   method="post">
+
+    <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+
+    <div class="form-floating">
+      <label for="floatingInput">Email address</label>
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+    </div>
+    <div class="form-floating">
+        <label for="floatingText">Name</label>
+        <input type="text" name="name" class="form-control" id="floatingText" placeholder="name">
+    </div>
+    <div class="form-floating">
+      <label for="floatingPassword1">Password</label>
+      <input type="password" class="form-control" id="floatingPassword1" placeholder="Password" name="pass1">
+    </div>
+    <div class="form-floating">
+      <label for="floatingPassword1">Password 2</label>
+      <input type="password" class="form-control" id="floatingPassword1" placeholder="Password 2" name="pass2">
+    </div>
+
+    <input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in"/>
+  </form>
+</main>
+
+<br><br><br>
+    
+  </body>
 </html>
+
+{% endblock %}

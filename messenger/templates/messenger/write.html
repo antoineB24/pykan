@@ -3,19 +3,6 @@
 {% block content %}
 {% if send %}
 
-
-
-{% endif %}
-<div style="text-align: center;">
-    <h1>Ecrire un message</h1>
-    <form action="{% url 'write' %}" method="post">
-        {{forms.as_p}}
-        <input type="submit"/>
-        
-    </form>
-</div>
-{% if send %}
-
 <div class="alert alert-success alert-dismissible fade show" role="alert" id="message">
    <h5 class="alert-heading">message envoyé</h5>
    <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="button_close">
@@ -30,6 +17,18 @@
         q.style.visibility = 'hidden'
     })
 </script>
+{% endif %}
+<div style="text-align: center;">
+    <h1>Ecrire un message</h1>
+    <form action="{% url 'write' %}" method="post">
+        {{forms.as_p}}
+        <input type="submit"/>
+        
+    </form>
+</div>
+{% if send %}
+
+
 {% endif %}
 <a href="http://127.0.0.1:8000/home/">home</a>
 {% endblock %}

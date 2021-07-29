@@ -8,8 +8,10 @@
             <a class="navbar-brand" href="http://127.0.0.1:8000/home/">home</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
+            {% if co %}
             <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/{{obj1.id_name}}/">profil</a>
+
             <ul class="nav justify-content-end">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'send'%}">show send</a>
@@ -38,11 +40,15 @@
                         <a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{user}}</a>
                     </li>
             </ul>
+            {% endif %}
         </div>
         </nav>
         <div class="jumbotron">
             <h2>Bienvenu dans l'application messenger</h2>
         </div>
+
+       {% if co %} 
+
         {% block content %}
         <div class="row">
             <div class="card" style="width: 24rem">
@@ -62,7 +68,7 @@
                 <div class="card-body">
                     <h1 class="card-title"> Écrire des message </h1>
                     <p class="card-text">écrire des messages à des personnes et amusez vous bien</p>
-                    <a class="btn btn-primary" href="{% url 'read'%}">write</a>
+                    <a class="btn btn-primary" href="{% url 'write'%}">write</a>
 
                 </div>
             </div>
@@ -71,13 +77,32 @@
                 <div class="card-body">
                     <h1 class="card-title"> Lire vos message envoyé </h1>
                     <p class="card-text">lire vos messages envoyé destiné à quelqun et amusez vous bien</p>
-                    <a class="btn btn-primary" href="{% url 'read'%}">send</a>
+                    <a class="btn btn-primary" href="{% url 'send'%}">send</a>
 
                 </div>
             </div>
 
         </div>
         {% endblock %}
+        {% else %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert">
+                il faut se connecter pour disposer de l'application messenger
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="button_close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <script type="text/javascript">
+                    n = document.getElementById('button_close')
+                    q = document.getElementById('alert')
+                    p =  function(){
+                        q.style.visibility = "hidden"
+                        console.log("hello")
+                    }
+                    n.onclick = p
+                </script>
+</div>
+
+        {% endif %}
+        
 
     </body>
 </html>

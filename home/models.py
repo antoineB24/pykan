@@ -36,6 +36,7 @@ class Compte(models.Model):
     img_profil = models.ImageField(upload_to="photos/", \
         default='photos/default_img.png')
     id_name = models.CharField(max_length=10)
+    email = models.EmailField(max_length=50, default="k")
 
     class Meta:
         verbose_name = 'compte'
