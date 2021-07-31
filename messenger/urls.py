@@ -15,13 +15,14 @@ Including another URLconf
 """
 
 from django.urls import path
-from .views import messenger, read, send, write
-from django.views.generic import RedirectView
+from .views import messenger, read, send, write, view
+
 
 urlpatterns = [
     path('', messenger, name='messenger'),
     path('send', send, name='send'),
     path('read', read, name='read'),
-    path('write', write, name='write')
+    path('write', write, name='write'),
+    path('view/<int:id>/', view, name='view')
 
 ]

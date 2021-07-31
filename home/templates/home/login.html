@@ -7,7 +7,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Signin</title>
+    <title>Log in</title>
 
     
 
@@ -42,12 +42,29 @@
 
 
     <div class="form-floating">
-        <input type="text" name="name" class="form-control" id="floatingText" placeholder="name">
+        {% if name_err.name %}
         <label for="floatingText">Name</label>
+        <input type="text" name="name" class="form-control is-{{name_err.name.err}}" id="floatingText" placeholder="name" value="{{value_name}}">
+        <div class="{{name_err.name.err}}-feedback">
+          {{name_err.name.mess}}
+        </div>
+        {% else %}
+        <label for="floatingText">Name</label>
+        <input type="text" name="name" class="form-control" id="floatingText" placeholder="name" value="{{value_name}}">
+
+        {% endif %}
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass1">
+      {% if name_err.pass1 %}
       <label for="floatingPassword">Password</label>
+      <input type="password" class="form-control is-{{name_err.pass1.err}}" id="floatingPassword" placeholder="Password" name="pass1" value="{{value_pass1}}">
+      <div class="{{name_err.pass1.err}}-feedback">
+        {{name_err.pass1.mess}}
+      </div>
+      {% else %}
+      <label for="floatingPassword">Password</label>
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pass1" value="{{value_pass1}}">
+      {% endif %}
     </div>
 
     <input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in"/>

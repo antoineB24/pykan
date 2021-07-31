@@ -4,7 +4,7 @@ sys.path.append('..')
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-from home.models import Compte
+from home.models import Compte,  Action
 
 
 mess = (False, "")
@@ -20,6 +20,11 @@ def create_blog(request):
     formblog = getBlogForm(user)(request.POST or None)
     if formblog.is_valid():
         if not mess[0]:
+            Action(
+                title=formblog.cleaned_data['name'],
+                from_app='blog',
+                user=user,
+                body=f'''vous avez crée le blog {formblog.cleaned_data['name']}''').save()
             Blog(name=formblog.cleaned_data['name'], author=user, body=formblog.cleaned_data['body']).save()
             return redirect(to='http://127.0.0.1:8000/blog/')
 
@@ -52,6 +57,11 @@ def write_mess(request):
         except Blog.DoesNotExist: 
             messErr = (True, "Pas De Nom ")
         else:
+            Action(
+                title='Forum_blog',
+                from_app='blog_forum',
+                user=user,
+                body=f'''vous avez commenté le blog '{formblogforum.cleaned_data['blog']}' ''').save()
             ForumBlog(author=user, body=formblogforum.cleaned_data['body'], blog=Blog.objects.get(name=formblogforum.cleaned_data['blog'])).save()
             return redirect(to='http://127.0.0.1:8000/blog/')
     return render(request, 'write_mess.html', locals())

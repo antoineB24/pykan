@@ -14,8 +14,7 @@ def dir_fun(obj):
     return dir(obj)
 
 @register.simple_tag()
-def include_url(url):
-    http = HttpRequest()
-    http.method = "GET"
+def include_url(url, request):
+
     func, args, kwargs= resolve(url, urlconf=tuple(urlpatterns))
-    return func(http, **kwargs).content.replace('\\n', '')
+    return func(request, **kwargs).content.replace('\\n', '')

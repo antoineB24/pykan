@@ -2,6 +2,7 @@ from os import name
 from django.db import models
 from django.utils import timezone
 from django.shortcuts import redirect, render
+from django.utils import timezone
 
 import time
 
@@ -43,6 +44,34 @@ class Compte(models.Model):
         ordering = ['date']
     def __str__(self) -> str:
         return self.name
+
+
+
+class Historique(models.Model):
+    title = models.CharField(max_length=50)
+    from_app = models.CharField(max_length=30)
+    body = models.TextField(max_length=300)
+    user = models.CharField(max_length=50)
+    date = models.DateTimeField(default=timezone.now, verbose_name="date de l'historique")
+    def __str__(self):
+        return self.body
+class Notif(models.Model):
+    title = models.CharField(max_length=50)
+    from_app = models.CharField(max_length=30)
+    body = models.TextField(max_length=300)
+    user = models.CharField(max_length=50)
+    date = models.DateTimeField(default=timezone.now, verbose_name="date de la notif")
+    def __str__(self):
+        return self.body
+class Action(models.Model):
+    title = models.CharField(max_length=50)
+    from_app = models.CharField(max_length=30)
+    body = models.TextField(max_length=300)
+    user = models.CharField(max_length=50)
+    date = models.DateTimeField(default=timezone.now, verbose_name="date de l'action")
+    def __str__(self):
+        return self.body
+
 
 
     

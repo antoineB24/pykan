@@ -3,7 +3,7 @@ sys.path.append('..')
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
-from home.models import Compte
+from home.models import Compte, Action
 
 # Create your views here.
 def forum(request):
@@ -26,12 +26,20 @@ def forum(request):
         author = data.read()
         mess = forum_form.cleaned_data['mess']
         data.close()
+        Action(
+            title='Forum',
+            from_app='forum',
+            user=user,
+            body="vous avez posté un message"
+            ).save()
         Forum(user=author, mess=mess).save()
 
     forum = Forum.objects.all()
     c = Compte.objects
     if not err:
         obj = c.get(name=user)
+        
+
     
         idname = obj.id_name
     

@@ -1,10 +1,11 @@
 
 
-{% block signup %}
+
 {% load static %}
+{% block 'signup' %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <title>Signin</title>
@@ -36,25 +37,52 @@
   <body class="text-center">
     
 <main class="form-signin">
-  <form   method="post">
+  <form   method="post" class="form-floatin">
 
     <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
     <div class="form-floating">
-      <label for="floatingInput">Email address</label>
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+      {% if name_err.email %}
+
+      <label for="floatingInput"> Email: </label><input type="email" class="form-control is-{{name_err.email.err}}" id="floatingInput" placeholder="name@example.com" name="email" value="{{value_email}}">
+      <div class="{{name_err.email.err}}-feedback">
+        {{name_err.email.mess}}
+      </div>
+
+      {% else %}
+      <label for="floatingInput"> Email: </label><input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" value="{{value_email}}">
+      {% endif %}
+
+
+    <div class="form-floating">
+        {% if name_err.name_ %}
+        <label for="floatingText">Name : </label><input type="text" name="name_" class="form-control is-{{name_err.name_.err}}" id="floatingText" placeholder="name" value="{{value_name_}}">
+        <div class="{{name_err.name_.err}}-feedback" id="floatingText">
+          {{name_err.name_.mess}}
+        </div>
+        {% else %}
+        <label for="floatingText">Name : </label><input type="text" name="name_" class="form-control" id="floatingText" placeholder="name">
+        {% endif %}
     </div>
     <div class="form-floating">
-        <label for="floatingText">Name</label>
-        <input type="text" name="name" class="form-control" id="floatingText" placeholder="name">
+      {% if name_err.pass1 %}
+      <label for="floatingPassword1">Password: </label><input type="password" class="form-control is-{{name_err.pass1.err}}" id="floatingPassword1" placeholder="Password_" name="pass1" value="{{value_pass1}}">
+      <div class="{{name_err.pass1.err}}-feedback">
+        {{name_err.pass1.mess}}
+      </div>
+      {% else %}
+      <label for="floatingPassword1">Password: </label><input type="password" class="form-control" id="floatingPassword1" placeholder="Password_" name="pass1" value="{{value_pass1}}">
+      {% endif %}
     </div>
     <div class="form-floating">
-      <label for="floatingPassword1">Password</label>
-      <input type="password" class="form-control" id="floatingPassword1" placeholder="Password" name="pass1">
-    </div>
-    <div class="form-floating">
-      <label for="floatingPassword1">Password 2</label>
-      <input type="password" class="form-control" id="floatingPassword1" placeholder="Password 2" name="pass2">
+      {% if name_err.pass2 %}
+      <label for="floatingPassword2">Password 2:</label><input type="password" class="form-control is-{{name_err.pass2.err}}" id="floatingPassword2" placeholder="Password 2" name="pass2" value="{{value_pass2}}">
+      <div class="{{name_err.pass2.err}}-feedback">
+        {{name_err.pass2.mess}}
+      </div>
+      {% else %}
+        <label for="floatingPassword2">Password 2:</label><input type="password" class="form-control" id="floatingPassword2" placeholder="Password 2" name="pass2" value="{{value_pass2}}">
+      {% endif %}
     </div>
 
     <input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in"/>
@@ -65,5 +93,7 @@
     
   </body>
 </html>
-
 {% endblock %}
+
+
+

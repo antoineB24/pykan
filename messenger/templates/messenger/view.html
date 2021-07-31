@@ -1,0 +1,7 @@
+{% extends './messenger.html' %}
+
+{% block content %}
+<div style="text-align: center;"><h1>{{obj.sujet}}</h1></div>
+de {{obj.author}} à {{obj.date}}<br/>
+{{obj.body}}
+{% endblock %}

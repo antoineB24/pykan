@@ -18,3 +18,7 @@ def _load_html(name):
 @register.filter
 def replace_char(a):
     return a.replace('\n', '<br/>')
+
+@register.filter
+def to_str(v):
+    return str(v)

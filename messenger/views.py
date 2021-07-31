@@ -1,11 +1,10 @@
-from posixpath import commonpath
 import sys
 from django import forms as form
 sys.path.append('..')
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Messenger, MessengerForm
-from home.models import Compte
+from home.models import Compte, Action
 
 # Create your views here.
 
@@ -64,7 +63,12 @@ def write(request):
                 print("ERREUR")
                 correct = False
             if correct:
-            
+                Action(
+                    title=forms.cleaned_data['subject'],
+                    from_app='messenger',
+                    user=user,
+                    body='vous avez envoyé un message à %s' % forms.cleaned_data['destinataire']
+                    ).save()
                 Messenger(author=user
                     ,destinataire=forms.cleaned_data['destinataire']
                     ,sujet=forms.cleaned_data['subject']
@@ -74,3 +78,7 @@ def write(request):
 
 
     return render(request, 'write.html', locals())
+
+def view(request, id):
+    obj = get_object_or_404(Messenger, id=id)
+    return render(request, 'view.html', locals())
