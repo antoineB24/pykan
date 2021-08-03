@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-APP_WITH_TEMPLATE = ['home', 'forum', 'blog', 'messenger']
+APP_WITH_TEMPLATE = ['home', 'forum', 'blog', 'messenger', 'todolist']
 APP_WITH_MEDIA = ['home']
 
 
@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'home',
     'forum',
     'blog',
-    'messenger'
+    'messenger',
+    'todolist'
     
 ]
 

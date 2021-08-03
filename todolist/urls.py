@@ -15,20 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView
-from django.conf.urls import static
-from django.conf import settings
+from .views import todolist, create
+
+
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('home/', include('home.urls'), name="home_"),
-    path('forum/', include('forum.urls'), name="forum_"),
-    path('blog/', include('blog.urls')),
-    path('messenger/', include('messenger.urls')),
-    path('todolist/', include('todolist.urls')),
-    path('', RedirectView.as_view(url="/home/")),
+    path('', todolist, name='todolist'),
+    path('create_at/<str:name>/', create, name='create_at')
 ]
-
-urlpatterns += static.static('static/', document_root='pyforum/static/')
-urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
