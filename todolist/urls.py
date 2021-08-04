@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import todolist, create
+from .views import todolist, create, set_time_1
 
 
 
 
 urlpatterns = [
     path('', todolist, name='todolist'),
-    path('create_at/<str:name>/', create, name='create_at')
+    path('create_at/<str:name>/', create, name='create_at'),
+    path('checked', set_time_1, name='view_time')
 ]

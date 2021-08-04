@@ -1,10 +1,11 @@
 import sys
 sys.path.append('..')
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse,  JsonResponse
 from home.models import Compte
 from .models import Time, TimeBody, TodoList
 from random import choice
+from django.forms.models import model_to_dict
 
 # Create your views here.
 
@@ -29,10 +30,10 @@ def todolist(request):
 		if request.POST.get('name_') is  not None:
 			if request.POST.get('name_') == '':
 				return render(request, "todolist.html", locals())
-			if request.POST['date'] == '':
+			if request.POST.get('date') == '':
 			  	return render(request, "todolist.html", locals())
-			date = request.POST['date']
-			name = request.POST['name']
+			date = request.POST.get('date')
+			name = request.POST.get('name_')
 			Time(user=user, date_started=date, name=name).save()
 		if not (request.POST.get('heure') is  None):
 			last = TimeBody.objects.filter(user=user, name_time=request.GET.get('time_n')).last()
@@ -51,7 +52,7 @@ def todolist(request):
 			if int(request.POST['minute']) > 24 or int(request.POST['minute']) < 0:
 				 return render(request, "todolist.html", locals())
 			if last:
-				if int(request.POST['heure']) < last.hours and int(request.POST['minute']) < last.minute :
+				if int(request.POST['heure']) < int(last.hours) and int(request.POST['minute']) < int(last.minute) :
 					return render(request, "todolist.html", locals())
 
 
@@ -87,8 +88,15 @@ def todolist(request):
 def create(request, name):
 	n=open('data.dt');user=n.read();n.close()
 	obj = get_object_or_404(TimeBody, name=name)
-	TodoList(user=user, name=name + '//todo', time_body_name=name).save()
 	n = TimeBody.objects.get(name=name, user=user)
 	n.is_todolist = True
 	n.save()
-	return redirect('home')
+	return redirect('todolist')
+
+def set_time_1(request):
+	print('hello')
+	if request.method == 'POST':
+		n = TodoList.objects.get(id=request.POST.get('id') )
+		n.checked = not n.checked
+		n.save()
+	return JsonResponse({"id": request.POST.get('id') } )
