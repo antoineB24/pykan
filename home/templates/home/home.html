@@ -29,7 +29,7 @@
 
        
     
-    <div class="card-group">   
+    <div class="card-group row-cols-md-7">   
         <div class="card" style="width: 14rem;">
             <img class="card-img-top" src="{% static 'home/forum_logo.jpeg' %}">
             <div class="card-body">
@@ -50,7 +50,7 @@
             </div>
         </div>
         
-        {% if user != "" %}
+        {% if user  %}
         
         <div class="card" style="width: 14rem">
             <img class="card-img-top" src="{% static 'home/messenger_logo.png' %}">
@@ -73,6 +73,17 @@
                 <a class="btn btn-primary" href="http://127.0.0.1:8000/todolist/">todo list</a>
             </div>
         </div>
+
+
+        <div class="card">
+            <img src="{% static 'home/libphoto_logo.png' %}" class="card-img-top">
+            <div class="card-body">
+                <h1 class="card-title">Library photos</h1>
+                <p class="card-text">entreposer vos photos ici et regardez les autres photos puis commentez les</p>
+                <a href="http://127.0.0.1:8000/libphoto/" class="btn btn-primary">Library photo</a>
+            </div>
+            
+        </div>
         
         <div class="card" style="width: 14rem;">
             <img class="card-img-top" src="{% static 'home/deconnect_logo.png' %}">
@@ -85,14 +96,14 @@
         
         
         <div class="card" style="width: 14rem;">
-            <img class="card-img-top" src="{{obj.img_profil.url}}" >
+            <img class="card-img-top" src="{{obj_p.img_profil.url}}" >
             <div class="card-header">
-                <h1 id="user"><em><i>{{user}}</i></em></h1>
+                <h1 id="user"><em><i>{{obj.username}}</i></em></h1>
             </div>
             <div class="card-body">
                 <h5 class="card-title">Profil</h5>
                 <p class="card-text">allez voir votre profil</p>
-                <a class="btn btn-primary" href="{% url 'profil' obj.id_name %}">profil</a>
+                <a class="btn btn-primary" href="{% url 'profil' obj_p.id_name %}">profil</a>
             </div>
         </div>
         
@@ -103,7 +114,7 @@
             <div class="card-body">
                 <h1 class="card-title">Se connecter</h1>
                 <p class="card-body">connectez vous pour être  parmis nous !!<br/>ca va être super chouette !!</p>
-                <a class="btn btn-primary position-relative" href="{% url 'login' %}" >se connecter</a> 
+                <a class="btn btn-primary position-relative" href="http://127.0.0.1:8000/home/login?next=/home/" >se connecter</a> 
      
             </div>
         </div>
@@ -120,7 +131,7 @@
         {% endif %}
 
     
-{% if user != '' %}
+{% if user %}
 <button class="btn btn-primary position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#action" aria-controls="offcanvasScrolling">
     Vos Action
 </button>

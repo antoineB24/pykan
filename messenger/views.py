@@ -4,19 +4,23 @@ sys.path.append('..')
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Messenger, MessengerForm
-from home.models import Compte, Action
+from home.models import  Action, Profil
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+
+@login_required
 def messenger(request):
+    user = request.user
     nb_no_read = 0
-    n=open('data.dt');user=n.read();n.close()
-    co = bool(user)
+    
+    co = user.is_authenticated
 
     if co:
-        obj1 = Compte.objects.get(name=user)
+        obj1 = user.profil
     
-        obj = Messenger.objects.filter(destinataire=user)
+        obj = Messenger.objects.filter(destinataire=user.username)
         for i in obj:
             if i.new:
                 nb_no_read += 1
@@ -25,21 +29,21 @@ def messenger(request):
 
 
 def send(request):
-    n=open('data.dt');user=n.read();n.close()
-    co = bool(user)
+    user = request.user
+    co = user.is_authenticated
     if co:
-        obj1 = Compte.objects.get(name=user)
+        obj1 = user.profil
 
-        obj = Messenger.objects.filter(author=user)
+        obj = Messenger.objects.filter(author=user.username)
     return render(request, 'send.html', locals())
 
 
 def read(request):
-    n=open('data.dt');user=n.read();n.close()
-    co = bool(user)
+    user = request.user
+    co = user.is_authenticated
     if co:
-        obj1 = Compte.objects.get(name=user)
-        obj = Messenger.objects.filter(destinataire=user)
+        obj1 = user.profil
+        obj = Messenger.objects.filter(destinataire=user.username)
         for i in obj:
             i.new = False 
             i.save()
@@ -48,11 +52,12 @@ def read(request):
 
 def write(request):
     forms = MessengerForm(request.POST or None)
-    n=open('data.dt');user=n.read();n.close()
-    co = bool(user)
+    user = request.user
+    co = user.is_authenticated
+
     
     if co:
-        obj1 = Compte.objects.get(name=user)
+        obj1 = user.profil
         send = False
         if forms.is_valid():
             send = False
@@ -66,10 +71,10 @@ def write(request):
                 Action(
                     title=forms.cleaned_data['subject'],
                     from_app='messenger',
-                    user=user,
+                    user=user.username,
                     body='vous avez envoyé un message à %s' % forms.cleaned_data['destinataire']
                     ).save()
-                Messenger(author=user
+                Messenger(author=user.username
                     ,destinataire=forms.cleaned_data['destinataire']
                     ,sujet=forms.cleaned_data['subject']
                     ,body=forms.cleaned_data['body']

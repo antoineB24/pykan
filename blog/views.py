@@ -4,7 +4,8 @@ sys.path.append('..')
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-from home.models import Compte,  Action
+from home.models import   Action, Profil
+from django.contrib.auth.models import User
 
 
 mess = (False, "")
@@ -14,25 +15,26 @@ MyZip = lambda a,b: [(a[i], b[i]) for i in range(len(a))]
 
 def create_blog(request):
     mess = (False, "")
-    n=open('data.dt');user=n.read();n.close()
-    if not bool(user):
+    user = request.user
+    if not user.is_authenticated:
         mess = (True, "Erreur: Vous ne pouvez pas écrire sans vous connectez")
-    formblog = getBlogForm(user)(request.POST or None)
+    obj1 = user.profil
+    formblog = getBlogForm(user.username)(request.POST or None)
     if formblog.is_valid():
         if not mess[0]:
             Action(
                 title=formblog.cleaned_data['name'],
                 from_app='blog',
-                user=user,
+                user=user.username,
                 body=f'''vous avez crée le blog {formblog.cleaned_data['name']}''').save()
-            Blog(name=formblog.cleaned_data['name'], author=user, body=formblog.cleaned_data['body']).save()
+            Blog(name=formblog.cleaned_data['name'], author=user.usernames, body=formblog.cleaned_data['body']).save()
             return redirect(to='http://127.0.0.1:8000/blog/')
 
     return render(request, 'create_blog.html', locals())
 def blog(request):    
-    n=open('data.dt');user=n.read();n.close()
-    if user:
-        obj = Compte.objects.get(name=user)
+    user = request.user
+    if user.is_authenticated:
+        obj = user.profil
         idname = obj.id_name
     else:
         err = True
@@ -49,8 +51,8 @@ def blog(request):
     return render(request, "blog.html", {**locals(), **globals()})
 
 def write_mess(request):
-    n=open('data.dt');user=n.read();n.close()
-    formblogforum = getForumBlogForm(user)(request.POST or None)
+    user = request.user
+    formblogforum = getForumBlogForm(user.username)(request.POST or None)
     if formblogforum.is_valid():
         try :
             Blog.objects.get(name=formblogforum.cleaned_data['blog'])
@@ -60,7 +62,7 @@ def write_mess(request):
             Action(
                 title='Forum_blog',
                 from_app='blog_forum',
-                user=user,
+                user=user.username,
                 body=f'''vous avez commenté le blog '{formblogforum.cleaned_data['blog']}' ''').save()
             ForumBlog(author=user, body=formblogforum.cleaned_data['body'], blog=Blog.objects.get(name=formblogforum.cleaned_data['blog'])).save()
             return redirect(to='http://127.0.0.1:8000/blog/')

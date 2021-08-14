@@ -13,7 +13,9 @@
             <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
             {% if not err %}
+            <a class="navbar-brand" href="http://127.0.0.1:8000/todolist/">todo list</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/deconecte">deconecter</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/{{idname}}/">profil</a>
             {% endif %}
         </div>
@@ -26,7 +28,7 @@
                     <img src="{{obj.img_profil.url}}" height="75" width="75">
                 </li>
                 <li class="nav-item">
-                    <a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{user}}</a>
+                    <a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{object_.username}}</a>
                 </li>
             </ul>
         </div>
@@ -34,17 +36,38 @@
     </nav>
     
         <p style="text-align: center;"><img src="{{obj.img_profil.url}}" width="200" height="200"></p>
-        <p style="text-align: center;" >{{obj.name}}</p>
+        <p style="text-align: center;" >{{obj.user.username}} </p>
+        {% if obj.comment %}
+        <p style="text-align: center;">commentaire : {{obj.comment}}</p>
+        {% endif %}
+        {% if not co %}
+        <a class="btn btn-primary" href="http://127.0.0.1:8000/home/add_amie/{{idname}}" style="text-align: right;">ajouter comme un amie</a>
+        {% endif %}
 
-        {% if user_co %}
-        <form action="{% url 'profil'  idname%}"  enctype="multipart/form-data" method="post">
-            {{image_input.as_p}}
+
+        {% if not err %}
+        <form action="{% url 'profil'  idname %}"  enctype="multipart/form-data" method="post">
+            <label for="img_profil">image: </label>{{image_input.image}}
+            <label for="comment">commentaire : </label>{{image_input.comment}}
             <input type="submit">
         </form>
         {% endif %}
-         {#{% include_url string_set_pass_cmd  as n %} #}
-         {#{{n|safe}}  #}
+        
 
+        {% if co %}
+        liste d'amie:
+        {% for i in list_amie %}
+        <div class="card " style="width: 18rem">
+            <img src="{{i.profil.img_profil.url}}" class="card-img-top" width="100">
+            <div class="card-body">
+                <h1 class="card-title"><a href="http://127.0.0.1:8000/home/profil/{{i.profil.id_name}}" >{{i.username}}</a></h1>
+                <p class="card-text">email : {{i.email}} <br/>commentaire: {{i.profil.comment}}</p>
+            </div>
+        </div>
+        {% empty %}
+        vous avez pas d'amie
+        {% endfor %}
+        {% endif %}
 
         <a href="{% url 'home' %}">home</a>
     </body>

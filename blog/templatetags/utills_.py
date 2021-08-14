@@ -5,13 +5,13 @@ from django.http import HttpRequest, HttpResponse
 register = template.Library()
 
 @register.simple_tag
-def _load_html(name):
-    http = HttpRequest()
+def _load_html(request_, name):
+    
 #\n
     if name == 'create_blog':
-        return str(create_blog(http).content).replace('\\n','')
+        return str(create_blog(request_).content).replace('\\n','')
     elif name == 'write_mess':
-        return str(write_mess(http).content).replace('\\n','')
+        return str(write_mess(request_).content).replace('\\n','')
     else:
         return 'RIEN'
 

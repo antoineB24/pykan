@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-APP_WITH_TEMPLATE = ['home', 'forum', 'blog', 'messenger', 'todolist']
+APP_WITH_TEMPLATE = ['home', 'forum', 'blog', 'messenger', 'todolist', 'libphoto']
 APP_WITH_MEDIA = ['home']
 
 
@@ -39,19 +39,22 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+
     'django.contrib.staticfiles',
     
     'home',
     'forum',
     'blog',
     'messenger',
-    'todolist'
+    'todolist',
+    'libphoto'
     
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
     'django.middleware.common.CommonMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -135,6 +138,8 @@ STATICFILES_DIRS = (
 )
 MEDIA_ROOT = BASE_DIR +  '/media'
 MEDIA_URL = '/media/'
+
+LOGIN_URL = 'http://127.0.0.1:8000/home/login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

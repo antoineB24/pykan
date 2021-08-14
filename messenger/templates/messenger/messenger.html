@@ -11,6 +11,7 @@
             {% if co %}
             <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/todolist/">todo list</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/deconecte">deconecter</a>
             <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/{{obj1.id_name}}/">profil</a>
 
             <ul class="nav justify-content-end">
@@ -38,7 +39,7 @@
                         <img src="{{obj1.img_profil.url}}" height="75" width="75">
                     </li>
                     <li class="nav-item">
-                        <a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{user}}</a>
+                        <a href="http://127.0.0.1:8000/home/profil/{{obj1.id_name}}" class="nav-link">{{user.username}}</a>
                     </li>
             </ul>
             {% endif %}

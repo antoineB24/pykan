@@ -38,7 +38,7 @@
 <main class="form-signin">
   <form   method="post">
 
-    <h1 class="h3 mb-3 fw-normal">Please log in</h1>
+    <h1 class="h3 mb-3 fw-normal">Please log in to access at {{app}}</h1>
 
 
     <div class="form-floating">
@@ -67,7 +67,12 @@
       {% endif %}
     </div>
 
-    <input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in"/>
+    <input class="w-100 btn btn-lg btn-primary" type="submit" value="Log in"/>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <a  class="btn  btn-outline-primary btn-lg " href="{% url 'signup' %}">sign up </a>
+        <a href="{% url 'home' %}"class="btn  btn-outline-primary btn-lg">home</a>
+    </div>
+    
   </form>
 </main>
 

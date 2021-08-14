@@ -1,0 +1,149 @@
+{% load fun %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>library photos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand bg-dark">
+        
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/">home</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
+            {% if not err %}
+            <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/todolist/">todo list</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/deconecte">deconecter</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/e7cWxFV/">profil</a>
+            {% endif %}
+        </div>
+        {% if not err %}
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item"><img src="{{obj.img_profil.url}}" height="75" width="75"></li>
+                <li class="nav-item"><a href="http://127.0.0.1:8000/home/profil/{{obj.id_name}}" class="nav-link">{{user.username}}</a></li>
+        </div>
+        {% endif %}
+
+        
+    </nav>
+    {% if err %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            INFO:  vous ne pouvez pas accedez à cette partit du site sans vous  connectez 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% else %}
+    <h2>
+        Mes Photos privées:
+    </h2>
+    <h2>Mes Photos partagées: 
+        
+        
+    
+        
+    </h2>
+    <div id="parat_photo" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    {% for p in lpp %}
+    <button type="button" data-bs-target="#parat_photo" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    {% endfor %}
+  </div>
+  <div class="carousel-inner">
+    {% for i in lpp  %}
+        <div class="carousel-item">
+            <img class="{{i.image.url}}" class="d-block w-100" />
+            <div class="carousel-caption d-none d-md-block">
+                <h1>{{i.titre}}</h1>
+                <p>{{i.comment}}</p>
+            </div>
+        </div>
+    {% empty %}
+        pas de photos partageé
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#parat_photo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#parat_photo" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+    <p><h2>Mes Photos(global): </h2>
+        <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addPr">
+                ajouter une photos 
+        </button>
+        <div class="modal fade" id="addPr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">add photo </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    
+                        <form enctype="multipart/form-data" method="post" >
+                            <div class="input-group mb-4">
+                                <label  for="image">votre photos: </label>
+                                <input type="file" name="imgPr" id="image" class="form-control" accept="image/*">
+                            </div>
+                            <div class="input-group mb-4">
+                                <label  for="comment">commentaire: </label>
+                                <textarea placeholder="vos commentaire" name="commentPr" id="comment" class="form-control">
+                                    vos commentaire
+                                </textarea>
+                            </div>
+                            <div class="input-group mb-4">
+                                <label class="input-group-text" for="s_user">partagé: 
+                                    <input type="checkbox" name="is_par" id="par" >
+                                </label>
+                                <select id="s_user" class="form-select" disabled  name="parta_n">
+                                    <option selected>Choose a friend</option>
+                                    {% if amie %}
+
+                                    {% for i in amie %}
+                                    <option>{{i}}</option>
+                                    {% endfor %}
+
+                                    {% endif %}
+
+                                </select>
+
+                                <script type="text/javascript">
+
+                                    par = document.getElementById('par');
+                                    se = document.getElementById('s_user');
+                                    par.addEventListener('click', event => {
+                                        if(! se.disabled) {
+                                            se.disabled = false
+                                        }
+                                        se.disabled = ! se.disabled
+                                    } );
+                                </script>
+                                
+                            </div>
+                             <input type="submit" class="btn btn-primary"> 
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </p>
+    {% endif %}
+
+
+
+</body>
+</html>

@@ -26,6 +26,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('messenger/', include('messenger.urls')),
     path('todolist/', include('todolist.urls')),
+    path('libphoto/', include('libphoto.urls')),
     path('', RedirectView.as_view(url="/home/")),
 ]
 

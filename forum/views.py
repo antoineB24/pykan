@@ -3,29 +3,28 @@ sys.path.append('..')
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
-from home.models import Compte, Action
+from home.models import  Action, Profil
+from django.contrib.auth.models import User
 
 # Create your views here.
 def forum(request):
     #if messErr[1]:
       #  err = True
     #@  return render(request, "forum.html", locals())
-    n = open('data.dt');user=n.read();n.close()
+    user = request.user
     err = ""
-    if not bool(user):
+    if not user.is_authenticated:
         err = "Erreur: Vous ne pouvez pas écrire sans vous connectez"
 
 
-    forum_form = getForumForm(user)(request.POST or None)
+    forum_form = getForumForm(user.username)(request.POST or None)
     
     
     if forum_form.is_valid():
         
         author = forum_form.cleaned_data['author']
-        data = open('data.dt')
-        author = data.read()
+        author = user.username
         mess = forum_form.cleaned_data['mess']
-        data.close()
         Action(
             title='Forum',
             from_app='forum',
@@ -35,13 +34,13 @@ def forum(request):
         Forum(user=author, mess=mess).save()
 
     forum = Forum.objects.all()
-    c = Compte.objects
+    c = User.objects
     if not err:
-        obj = c.get(name=user)
+        obj = c.get(username=user.username)
         
 
     
-        idname = obj.id_name
+        idname = obj.profil.id_name
     
 
     return render(request, "forum.html", locals())

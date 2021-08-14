@@ -21,12 +21,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('login', login, name='login'),
     path('signup', signup, name='signup'),
     path('deconecte', deconecte, name='deconecte'),
     path('profil/<path:idname>/', profil, name='profil'),
+    path('add_amie/<path:idname>/', add_amie, name='add_amie')
     #path('profil/<str:idname>/set_pass', set_pass, name='set_pass')
 ]
 #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

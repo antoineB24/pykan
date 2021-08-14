@@ -38,7 +38,7 @@
                     <img src="{{obj.img_profil.url}}" height="75" width="75">
                 </li>
                 <li class="nav-item">
-                    <a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{user}}</a>
+                    <a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{user.username}}</a>
                 </li>
             </ul>
         </div>
@@ -88,7 +88,7 @@
                                             {% for q in todolist_ %}
                                             {% if q.time_body_name == i.name %}
                                                 <form class="form-floating" method="post" action="http://127.0.0.1:8000/todolist/?id_ckecked={{q.id}}">
-                                                    <li class="list-group-item" > {% if q.checked %} <input type="checkbox" name="ckecked-{{q.id}}" onclick="set_style({{q.id}})" checked ><span style="text-decoration: line-through;" id="{{q.id}}">{{q.action}}</span>{% else %}<input type="checkbox" name="ckecked-{{q.id}}" onclick="set_style({{q.id}})" ><span id="{{q.id}}">{{q.action}}</span>{% endif %}</li>
+                                                    <li class="list-group-item" > {% if q.checked %} <input type="checkbox" name="ckecked-{{q.id}}" onclick="set_style({{q.id}})" checked ><span style="text-decoration: line-through;" id="{{q.id}}">{{q.action}}</span>{% else %}<input type="checkbox" name="ckecked-{{q.id}}" onclick="set_style({{q.id}})" ><span id="{{q.id}}">{{q.action}}</span>{% endif %}<button onclick="delete_task({{q.id}})" class="btn btn-primary">delete</button></li>
 
                                                 </form>
                                                 
@@ -97,10 +97,11 @@
                                             <script type="text/javascript">
 
                                                     function dire_hello(id) {
-                                                        
-                                                        var xhr = new XMLHttpRequest();
+                                                        n = document.getElementById(id)
+                                                        let xhr = new XMLHttpRequest();
                                                         xhr.open("POST", 'http://127.0.0.1:8000/todolist/checked');
                                                         //Envoie les informations du header adaptées avec la requête
+
                                                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                         xhr.onreadystatechange = function() { //Appelle une fonction au changement d'état.
                                                             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -121,14 +122,19 @@
 
                                                     function set_style(id){
                                                         dire_hello(id)
-                                                         n = document.getElementById(id)
-                                                                
-                                                            
-                                                        
-                                                    
                                                     }
 
+                                                    function delete_task(id){
+                                                        xhr  = new XMLHttpRequest()
+                                                        xhr.open('POST', 'http://127.0.0.1:8000/todolist/delete')
+                                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                        xhr.onreadystatechange = function() { //Appelle une fonction au changement d'état.
+                                                            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {}
+                                                               
+                                                        }
+                                                        xhr.send("id_delete=" + id)
 
+                                                    }
 
                                                 </script>
                                         </ol>

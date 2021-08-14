@@ -1,7 +1,6 @@
 from django import template
 from ..urls import urlpatterns
-from django.urls import resolve
-from django.http import HttpRequest
+from django.urls import resolve ,reverse
 
 register = template.Library()
 
