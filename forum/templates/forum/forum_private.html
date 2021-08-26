@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Private forum</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand bg-dark">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/">home</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
+            {% if not err %}
+            <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/todolist/">todo list</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/{{idname}}/">profil</a>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/home/deconecte">deconecter</a>
+            {% endif %}
+            <div class="mx-auto order-0">
+                <h3>Forum</h3>
+            </div>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <img src="{{obj.img_profil.url}}" height="75" width="75">
+                </li>
+                <li class="nav-item">
+                    <a href="http://127.0.0.1:8000/home/profil/{{obj.profil.id_name}}" class="nav-link">{{user}}</a>
+                </li>
+            </ul>
+        </div>
+        
+
+    </nav>
+
+   	<form method="post">
+   		{{form.as_p}}
+   		<input type="submit" value="envoyer">
+   	</form>
+</body>
+</html>

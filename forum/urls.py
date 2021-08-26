@@ -20,5 +20,6 @@ from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', forum, name='forum'),
-    path('list_forum/', list_forum, name='list_forum')
+    path('list_forum/', list_forum, name='list_forum'),
+    path('private_forum/<path:idname>/', private_forum, name='private_forum')
 ]

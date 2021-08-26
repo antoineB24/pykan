@@ -37,6 +37,7 @@ class ForumPrivateBody(models.Model):
     user = models.CharField(max_length=50)
     date = models.DateTimeField(default=timezone.now, verbose_name="date send message")
     mess = models.TextField(max_length=500)
+    name_forum = models.CharField(max_length=50)
 
     class Meta:
         verbose_name= 'ForumPrivateBody'
@@ -45,7 +46,7 @@ class ForumPrivateBody(models.Model):
         return self.user
 
 class ForumPrivate(models.Model):
-    forum_body = models.OneToOneField(ForumPrivateBody, on_delete=models.CASCADE)
+    
     user = models.CharField(max_length=50)
     title = models.CharField(max_length=50)
     accept = models.CharField(max_length=200)
@@ -68,9 +69,9 @@ def getForumForm(name):
 def getNewForumPrivateForm(user):
     list_amie = ['choose a amie'] + [i for i in user.profil.amie.split('#') if i]
     class NewForumPrivateForm(forms.Form):
-        accept =  forms.ChoiceField(choices=list_amie, required=False,default=0)
+        accept = forms.CharField(max_length=10, required=False, label='l\' id name de la personne')
         title = forms.CharField(max_length=50, required=True)
-        max_message = forms.CharField(max_length=5, required=False)
+        max_message = forms.IntegerField(max_value=5000, required=True, min_value=0)
     return NewForumPrivateForm
 
 def getForumPrivateBodyForm(user):

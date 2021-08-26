@@ -3,4 +3,6 @@ from .models import *
 
 
 admin.site.register(Forum)
+admin.site.register(ForumPrivate)
+admin.site.register(ForumPrivateBody)
 # Register your models here.

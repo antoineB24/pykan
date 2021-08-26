@@ -20,7 +20,6 @@ from todolist.models import TodoList
 from django.db.models.fields.related_descriptors import ForeignKeyDeferredAttribute, ForwardManyToOneDescriptor
 from django.urls import reverse
 
-
 #import models
 
 # Create your views here.
@@ -282,11 +281,10 @@ def profil(request, idname):
         co = True
 
     image_input = models.get_ChangeImgage()(request.POST or None, request.FILES)
-    print(image_input.as_p())
+    
     if request.method == "POST":
         if image_input.is_valid():
             obj.img_profil = image_input.cleaned_data['image']
-            obj.comment = image_input.cleaned_data['comment']
             obj.save()
         
 
@@ -346,7 +344,7 @@ def to_pandas(db, field=None, list_field_object=None):
                 list_[i].append(getattr(db.objects.all()[i], n) )
 
     return pd.DataFrame(list_, columns=field_copy)
-
+print(to_pandas(models.Profil, list_field_object=[User]))
 
 
 

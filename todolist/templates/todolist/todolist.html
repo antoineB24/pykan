@@ -70,12 +70,12 @@
                     <li class="nav-item" style="size: 50px">
                             {% if i.is_todolist %}
                             <div class="accordion">
-                                <div class="accordion-item">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="accordion-item" >
+                                    <button class="accordion-button  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-{{i.id}}-{{n.id}}" aria-expanded="true" aria-controls="collapseOne">
                                         {{i.hours}}h:{{i.minute}}m: {{i.body}}
                                     </button>
                                 </div>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div id="acc-{{i.id}}-{{n.id}}" class="accordion-collapse collapse show" aria-labelledby="headingOne">
                                     <div class="accordion-body">
                                         <ol class="list-group list-group-numbered">
                                             
