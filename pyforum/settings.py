@@ -142,7 +142,7 @@ MEDIA_URL = '/media/'
 LOGIN_URL = 'http://127.0.0.1:8000/home/login'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+# https://docs.djangoproject.com/en/3.2/ref/settings/#defaulst-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -152,4 +152,6 @@ EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = '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'
+SEND_GRIV_PASSWORD = 'ciL9bYnLiE5Hnz7d'
+SEND_GRIV_USER = 'tonio.barbier@gmail.com'
 

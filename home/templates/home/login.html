@@ -112,7 +112,7 @@
         From: "opacity-100 translate-y-0 sm:scale-100"
         To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     -->
-    <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+    <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6 m-auto top-0">
       <div>
         <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-300">
           <!-- Heroicon name: outline/check -->
@@ -124,18 +124,23 @@
           </h3>
           <div class="mt-2">
             <p class="text-sm text-gray-500">
-              <div>
-                <label for="company-website" class="block text-sm font-medium text-gray-700">
-                  your email
-                </label>
-                <div class="mt-1 flex rounded-md shadow-sm">
-                  
-                  <input type="email" name="company-website" id="username" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300" placeholder="your email" required>
-                  <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-2" id="send">
-                    send
-                  </button>
-                </div>
-              </div>
+              <div class="inline-flex rounded-md shadow-sm -space-y-px w-full h-20">
+        <div class="block float-left w-1/2 h-full">
+            <div>
+              <label for="email-address" class="sr-only">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
+            </div>
+            <div>
+              
+              <input id="username" name="username" type="text" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="username">
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="block items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-4 h-20" id='send'>
+  send
+</button>
+        </div>
+      </div>
             </p>
           </div>
         </div>
@@ -220,7 +225,7 @@
                     Error
                   </p>
                   <p class="mt-1 text-sm text-gray-500">
-                    l'username n'existe pas
+                    l'email n'existe pas 
                   </p>
                 </div>
                 <div class="ml-4 flex-shrink-0 flex">
@@ -245,7 +250,7 @@
   p = document.getElementById('modal')
   c = document.getElementById('close')
   l = document.getElementById('send')
-  i = document.getElementById('username')
+  i = document.getElementById('email')
   n = document.getElementById('notif')
   ne = document.getElementById('notif-err')
   cl = document.getElementsByClassName('close')

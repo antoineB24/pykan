@@ -1,48 +1,121 @@
 {% load MyFun %}
+{% load static %}
 <html>
     <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <title>profil</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand bg-dark">
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        
+        <article>
+          <!-- Profile header -->
+          <div>
+            <div>
+              <img class="h-32 w-full object-cover lg:h-48" src="{% static 'home/foret.jpeg' %}" alt="">
+            </div>
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                <div class="flex">
+                 
+                  <img src="{{obj.img_profil.url}}" class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32">
+                </div>
+                <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                  <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
+                    <h1 class="text-2xl font-bold text-gray-900 truncate">
+                      Ricardo Cooper
+                    </h1>
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
+                <h1 class="text-2xl font-bold text-gray-900 truncate">
+                  {{obj.user.username}}
+                </h1>
+              </div>
+            </div>
+          </div>
 
-            <a class="navbar-brand" href="http://127.0.0.1:8000/home/">home</a>
-            <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">blog</a>
-            <a class="navbar-brand" href="http://127.0.0.1:8000/forum/">forum</a>
-            {% if not err %}
-            <a class="navbar-brand" href="http://127.0.0.1:8000/todolist/">todo list</a>
-            <a class="navbar-brand" href="http://127.0.0.1:8000/messenger/">messenger</a>
-            <a class="navbar-brand" href="http://127.0.0.1:8000/home/deconecte">deconecter</a>
-            <a class="navbar-brand" href="http://127.0.0.1:8000/home/profil/{{idname}}/">profil</a>
-            {% endif %}
-        </div>
+          <!-- Tabs -->
+          
 
-        {% if not  err %}
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
+          <!-- Description list -->
+          <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">
+                  Phone
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{obj.user.profil.phone}}
+                </dd>
+              </div>
 
-                <li class="nav-item">
-                    <img src="{{obj.img_profil.url}}" height="75" width="75">
-                </li>
-                <li class="nav-item">
-                    <a href="http://127.0.0.1:8000/home/profil/{{idname}}" class="nav-link">{{object_.username}}</a>
-                </li>
-            </ul>
-        </div>
-        {% endif %}
-    </nav>
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">
+                  Email
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{obj.user.email}}
+                </dd>
+              </div>
+
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">
+                  Title
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{obj.user.profil.title}}
+                </dd>
+              </div>
+
+              
+
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">
+                  Location
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{obj.user.profil.location}}
+                </dd>
+              </div>
+
+            
+
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">
+                  Salary
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{obj.user.profil.salary}}
+                </dd>
+              </div>
+
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">
+                  Birthday
+                </dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{obj.user.profil.birthdays}}
+                </dd>
+              </div>
+
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-500">
+                  About
+                </dt>
+                <dd class="mt-1 max-w-prose text-sm text-gray-900 space-y-5">
+                  {{obj.user.profil.comment}}
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div>
     
-        <p style="text-align: center;"><img src="{{obj.img_profil.url}}" width="200" height="200"></p>
-        <p style="text-align: center;" >{{obj.user.username}} </p>
-        {% if obj.comment %}
-        <p style="text-align: center;">commentaire : {{obj.comment}}</p>
-        {% endif %}
-        {% if not co %}
-        <a class="btn btn-primary" href="http://127.0.0.1:8000/home/add_amie/{{idname}}" style="text-align: right;">ajouter comme un amie</a>
-        {% endif %}
+    
+        
 
 
         {% if not err %}
@@ -51,23 +124,46 @@
             <label for="comment">commentaire : </label>{{image_input.comment}}
             <input type="submit">
         </form>
+
+
         {% endif %}
         
 
-        {% if co %}
-        liste d'amie:
-        {% for i in list_amie %}
-        <div class="card " style="width: 18rem">
-            <img src="{{i.profil.img_profil.url}}" class="card-img-top" width="100">
-            <div class="card-body">
-                <h1 class="card-title"><a href="http://127.0.0.1:8000/home/profil/{{i.profil.id_name}}" >{{i.username}}</a></h1>
-                <p class="card-text">email : {{i.email}} <br/>commentaire: {{i.profil.comment}}</p>
+        
+          </div>
+
+          <!-- Team member list -->
+          {% if co %}
+          <div class="mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
+            <h2 class="text-sm font-medium text-gray-500">Team members</h2>
+            <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {% for i in list_amie %}
+              <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
+                <div class="flex-shrink-0">
+                  <img class="h-10 w-10 rounded-full" src="{{i.profil.img_profil.url}}" alt="">
+                </div>
+                <div class="flex-1 min-w-0">
+                  <a href="#" class="focus:outline-none">
+                    <span class="absolute inset-0" aria-hidden="true"></span>
+                    <p class="text-sm font-medium text-gray-900">
+                      {{i.username}}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate">
+                      {{i.profil.title}}
+                    </p>
+                  </a>
+                </div>
+              </div>
+              {% endfor %}
+            {% endif %}
+            
+
+              
+
+              
             </div>
-        </div>
-        {% empty %}
-        vous avez pas d'amie
-        {% endfor %}
-        {% endif %}
+          </div>
+        </article>
 
         <a href="{% url 'home' %}">home</a>
     </body>

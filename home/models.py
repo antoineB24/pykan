@@ -42,6 +42,11 @@ class Profil(models.Model):
     id_name = models.CharField(max_length=50)
     amie = models.CharField(max_length=25*301, default='#')
     comment = models.TextField(max_length=200, default='', blank=False)
+    title = models.CharField(max_length=200, default='non connue')
+    phone =  models.CharField(max_length=50, default='non connue')
+    location = models.CharField(max_length=100,default='non connue')
+    salary = models.CharField(max_length=50, default='non connue')
+    birthdays  = models.CharField(max_length=50,default='non connue')
 
     
 
