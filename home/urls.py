@@ -16,7 +16,7 @@ Including another URLconf
 from os import name
 from django.contrib import admin
 from django.urls import path, include
-from .views import *
+from .views import home, login, signup, deconecte, profil, add_amie,forgot
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -26,7 +26,8 @@ urlpatterns = [
     path('signup', signup, name='signup'),
     path('deconecte', deconecte, name='deconecte'),
     path('profil/<path:idname>/', profil, name='profil'),
-    path('add_amie/<path:idname>/', add_amie, name='add_amie')
+    path('add_amie/<path:idname>/', add_amie, name='add_amie'),
+    path('forgot_pass/', forgot ,name='forgot')
     #path('profil/<str:idname>/set_pass', set_pass, name='set_pass')
 ]
 #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

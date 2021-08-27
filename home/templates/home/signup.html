@@ -3,7 +3,9 @@
 
 {% load static %}
 {% block 'signup' %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 <!doctype html>
 <html lang="fr">
   <head>
@@ -35,59 +37,64 @@
     <link href="{% static 'home/signin.css' %}" rel="stylesheet">
   </head>
   <body class="text-center">
-    
-<main class="form-signin">
-  <form   method="post" class="form-floatin">
+    <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 m-auto top-0">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      Sign up
+    </h2>
+  </div>
 
-    <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
-
-    <div class="form-floating">
-      {% if name_err.email %}
-
-      <label for="floatingInput"> Email: </label><input type="email" class="form-control is-{{name_err.email.err}}" id="floatingInput" placeholder="name@example.com" name="email" value="{{value_email}}">
-      <div class="{{name_err.email.err}}-feedback">
-        {{name_err.email.mess}}
-      </div>
-
-      {% else %}
-      <label for="floatingInput"> Email: </label><input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" value="{{value_email}}">
-      {% endif %}
-
-
-    <div class="form-floating">
-        {% if name_err.name_ %}
-        <label for="floatingText">Name : </label><input type="text" name="name_" class="form-control is-{{name_err.name_.err}}" id="floatingText" placeholder="name" value="{{value_name_}}">
-        <div class="{{name_err.name_.err}}-feedback" id="floatingText">
-          {{name_err.name_.mess}}
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <form class="space-y-6" action="#" method="POST">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">
+            Email address
+          </label>
+          <div class="mt-1">
+            <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
         </div>
-        {% else %}
-        <label for="floatingText">Name : </label><input type="text" name="name_" class="form-control" id="floatingText" placeholder="name">
-        {% endif %}
-    </div>
-    <div class="form-floating">
-      {% if name_err.pass1 %}
-      <label for="floatingPassword1">Password: </label><input type="password" class="form-control is-{{name_err.pass1.err}}" id="floatingPassword1" placeholder="Password_" name="pass1" value="{{value_pass1}}">
-      <div class="{{name_err.pass1.err}}-feedback">
-        {{name_err.pass1.mess}}
-      </div>
-      {% else %}
-      <label for="floatingPassword1">Password: </label><input type="password" class="form-control" id="floatingPassword1" placeholder="Password_" name="pass1" value="{{value_pass1}}">
-      {% endif %}
-    </div>
-    <div class="form-floating">
-      {% if name_err.pass2 %}
-      <label for="floatingPassword2">Password 2:</label><input type="password" class="form-control is-{{name_err.pass2.err}}" id="floatingPassword2" placeholder="Password 2" name="pass2" value="{{value_pass2}}">
-      <div class="{{name_err.pass2.err}}-feedback">
-        {{name_err.pass2.mess}}
-      </div>
-      {% else %}
-        <label for="floatingPassword2">Password 2:</label><input type="password" class="form-control" id="floatingPassword2" placeholder="Password 2" name="pass2" value="{{value_pass2}}">
-      {% endif %}
-    </div>
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-700">
+            Username
+          </label>
+          <div class="mt-1">
+            <input id="username" name="name_" type="username" autocomplete="username" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
 
-    <input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in"/>
-  </form>
-</main>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">
+            Password 1
+          </label>
+          <div class="mt-1">
+            <input id="password" name="pass1" type="password" autocomplete="current-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">
+            Password 2
+          </label>
+          <div class="mt-1">
+            <input id="password" name="pass2" type="password" autocomplete="current-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between w-full"><br/></div>
+
+        <div>
+          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Sign up
+          </button>
+        </div>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <br><br><br>
     

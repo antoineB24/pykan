@@ -1,17 +1,19 @@
 import sys
 sys.path.append('..')
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from home.models import   Action, Profil
 from django.contrib.auth.models import User
+import random as r, string as s
 
 
 mess = (False, "")
 messErr = (False, "")
 
 MyZip = lambda a,b: [(a[i], b[i]) for i in range(len(a))]
+mk_id_b = lambda l: ''.join([r.choice('azertyuiopqsdfghjklmwxcvbn1234567890') for i in range(l)])
 
 def create_blog(request):
     mess = (False, "")
@@ -27,17 +29,19 @@ def create_blog(request):
                 from_app='blog',
                 user=user.username,
                 body=f'''vous avez crée le blog {formblog.cleaned_data['name']}''').save()
-            Blog(name=formblog.cleaned_data['name'], author=user.usernames, body=formblog.cleaned_data['body']).save()
+            Blog(name=formblog.cleaned_data['name'], author=user.username, body=formblog.cleaned_data['body'], idblog=mk_id_b(9)).save()
             return redirect(to='http://127.0.0.1:8000/blog/')
 
     return render(request, 'create_blog.html', locals())
 def blog(request):    
     user = request.user
+
+    err = not user.is_authenticated
     if user.is_authenticated:
         obj = user.profil
         idname = obj.id_name
-    else:
-        err = True
+   
+
     body_blog = Blog.objects.all()
     
     body_blog_forum = ForumBlog.blog
@@ -48,7 +52,8 @@ def blog(request):
     local = locals()
     local.update({'mess': mess})
     local.update({'messErr': messErr})
-    return render(request, "blog.html", {**locals(), **globals()})
+    print(locals())
+    return render(request, "blog.html", locals())
 
 def write_mess(request):
     user = request.user
@@ -67,4 +72,9 @@ def write_mess(request):
             ForumBlog(author=user, body=formblogforum.cleaned_data['body'], blog=Blog.objects.get(name=formblogforum.cleaned_data['blog'])).save()
             return redirect(to='http://127.0.0.1:8000/blog/')
     return render(request, 'write_mess.html', locals())
+
+def go_blog(request, idblog):
+    blog = get_object_or_404(Blog, idblog=idblog)
+    forumblog = ForumBlog.objects.filter(blog=blog)
+    return render(request, 'go_blog.html', locals())
 

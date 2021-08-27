@@ -16,13 +16,13 @@ Including another URLconf
 from os import name
 from django.contrib import admin
 from django.urls import path, include
-from .views import blog, create_blog, write_mess
+from .views import blog, create_blog, write_mess, go_blog
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', blog, name='blog'),
     path('main', RedirectView.as_view(pattern_name='blog')),
     path('create_blog', create_blog, name='create_blog'),
-    path('write_mess', write_mess, name='write_mess')
+    path('write_mess', write_mess, name='write_mess'),
+    path('blog_global/<str:idblog>', go_blog,name='')
 ]

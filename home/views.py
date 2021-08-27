@@ -1,7 +1,7 @@
 import sys
 sys.path.append('..')
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.conf import settings
 from . import models
 import string, random as rand
@@ -19,6 +19,7 @@ from django.db.models.query_utils import DeferredAttribute
 from todolist.models import TodoList
 from django.db.models.fields.related_descriptors import ForeignKeyDeferredAttribute, ForwardManyToOneDescriptor
 from django.urls import reverse
+from django.core.mail import send_mail
 
 #import models
 
@@ -344,7 +345,19 @@ def to_pandas(db, field=None, list_field_object=None):
                 list_[i].append(getattr(db.objects.all()[i], n) )
 
     return pd.DataFrame(list_, columns=field_copy)
-print(to_pandas(models.Profil, list_field_object=[User]))
+
+def forgot(request):
+    if  request.user.is_authenticated:
+        return HttpResponseForbidden()
+    if request.method == 'POST':
+
+        object_  = get_object_or_404(User,email=request.POST.get('name'))
+        send_mail('test',
+            'ceci est un test',
+            'tonio.barbier@gmail.com',
+            [request.POST.get('name')])
+
+    return HttpResponse('hello')
 
 
 

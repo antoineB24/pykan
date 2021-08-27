@@ -17,6 +17,7 @@ class Blog(models.Model):
     author = models.CharField(max_length=50)
     date = models.DateTimeField(verbose_name="date Blog", default=timezone.now)
     body = models.TextField(max_length=800)
+    idblog = models.CharField(max_length=20)
     class Meta:
         verbose_name = "Blog"
         ordering = ['date']
