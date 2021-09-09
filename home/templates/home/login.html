@@ -10,284 +10,223 @@
     <title>Log in</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-
-    <!-- Bootstrap core CSS -->
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
+    <script src="https://unpkg.com/vue@next"></script>
     <link href="{% static 'home/signin.css' %}" rel="stylesheet">
   </head>
-  <body class="text-center">
+  <body class="text-center" >
+
+<div class="block m-auto" id="app">
+  <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 m-auto top-0">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Log in to your account
+      </h2>
     
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 m-auto top-0">
-  <div class="sm:mx-auto sm:w-full sm:max-w-md">
-    <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
-    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-      Log in to your account
-    </h2>
-  
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <form class="space-y-6" action="#" method="POST">
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">
+              username
+            </label>
+            <div class="mt-1">
+              <input id="name" name="name" type="text" autocomplete="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="username">
+            </div>
+          </div>
+
+          <div>
+            <label for="pass1" class="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <div class="mt-1">
+              <input id="pass1" name="pass1" type="password" autocomplete="current-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="password">
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between">
+          
+
+            <div class="text-sm">
+              <a href="{% url 'signup' %}" class="font-medium text-indigo-600 hover:text-indigo-500 mt-3 text-indigo-500 inline-flex items-center hover:underline ">
+                dont't have account ?  go sign up 
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+              </a>
+              <a class="font-medium text-indigo-600 hover:text-indigo-500 mt-3 text-indigo-500 inline-flex items-center hover:underline  cursor-pointer " id="fpass" @click="show_modal_forgot=true">forgot your password ?</a>
+            </div>
+          </div>
+
+          <div>
+            <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Log in
+            </button>
+          </div>
+        </form>
+
+        
+      </div>
+    </div>
   </div>
+  
 
-  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-      <form class="space-y-6" action="#" method="POST">
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="fixed z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true" v-show="show_modal_forgot">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+      <!-- This element is to trick the browser into centering the modal contents. -->
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+      <!--
+        Modal panel, show/hide based on modal state.
+
+        Entering: "ease-out duration-300"
+          From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          To: "opacity-100 translate-y-0 sm:scale-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100 translate-y-0 sm:scale-100"
+          To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      -->
+      <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6 m-auto top-0">
         <div>
-          <label for="name" class="block text-sm font-medium text-gray-700">
-            username
-          </label>
-          <div class="mt-1">
-            <input id="name" name="name" type="text" autocomplete="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="username">
+          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-300">
+            <!-- Heroicon name: outline/check -->
+            <i class="fas fa-key fa-2x"></i>
+          </div>
+          <div class="mt-3 text-center sm:mt-5">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+              forgot password
+            </h3>
+            <div class="mt-2">
+              <p class="text-sm text-gray-500">
+                <form class="inline-flex rounded-md shadow-sm -space-y-px w-full h-20" id="f">
+                  <div class="block float-left w-1/2 h-full">
+                    <div>
+                      <label for="email-address" class="sr-only">Email address</label>
+                      <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
+                    </div>
+                    <div>
+                      
+                      <input id="username" name="username" type="text" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="username">
+                    </div>
+                  </div>
+                  <div>
+                    <button type="submit" class="block items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-4 h-20" id='send' @click="send_mail()">
+                    send
+                    </button>
+                  </div>
+                </form>
+              </p>
+            </div>
           </div>
         </div>
-
-        <div>
-          <label for="pass1" class="block text-sm font-medium text-gray-700">
-            Password
-          </label>
-          <div class="mt-1">
-            <input id="pass1" name="pass1" type="password" autocomplete="current-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="password">
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between">
-         
-
-          <div class="text-sm">
-            <a href="{% url 'signup' %}" class="font-medium text-indigo-600 hover:text-indigo-500 mt-3 text-indigo-500 inline-flex items-center hover:underline ">
-              dont't have account ?  go sign up 
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-              <path d="M5 12h14M12 5l7 7-7 7"></path>
-            </svg>
-            </a>
-            <a class="font-medium text-indigo-600 hover:text-indigo-500 mt-3 text-indigo-500 inline-flex items-center hover:underline  cursor-pointer " id="fpass">forgot your password ?</a>
-          </div>
-        </div>
-
-        <div>
-          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Log in
+        <div class="mt-5 sm:mt-6">
+          <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm" @click="show_modal_forgot=false">
+            close
           </button>
         </div>
-      </form>
+        <div aria-live="assertive" class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start hidden
+        " id="notif">
+          <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+            <!--
+              Notification panel, dynamically insert this into the live region when it needs to be displayed
 
-      
+              Entering: "transform ease-out duration-300 transition"
+                From: "translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                To: "translate-y-0 opacity-100 sm:translate-x-0"
+              Leaving: "transition ease-in duration-100"
+                From: "opacity-100"
+                To: "opacity-0"
+            -->
+            <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden  transform ease-out duration-300 transition" >
+              <div class="p-4">
+                <div class="flex items-start">
+                  <div class="flex-shrink-0">
+                    <!-- Heroicon name: outline/check-circle -->
+                    <svg class="h-6 w-6 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div class="ml-3 w-0 flex-1 pt-0.5">
+                    <p class="text-sm font-medium text-gray-900">
+                      Username
+                    </p>
+                    <p class="mt-1 text-sm text-gray-500">
+                      recu OK
+                    </p>
+                  </div>
+                  <div class="ml-4 flex-shrink-0 flex">
+                    <button class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <span class="sr-only">Close</span>
+                      <!-- Heroicon name: solid/x -->
+                      <svg class="h-5 w-5 close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <div aria-live="assertive" class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start hidden" id="notif-err">
+          <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+            <!--
+              Notification panel, dynamically insert this into the live region when it needs to be displayed
+
+              Entering: "transform ease-out duration-300 transition"
+                From: "translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                To: "translate-y-0 opacity-100 sm:translate-x-0"
+              Leaving: "transition ease-in duration-100"
+                From: "opacity-100"
+                To: "opacity-0"
+            -->
+            <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden transform ease-out duration-300 transition" id="notif">
+              <div class="p-4">
+                <div class="flex items-start">
+                  <div class="flex-shrink-0">
+                    <!-- Heroicon name: outline/check-circle -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" version="1.1" viewBox="0 0 32 32">
+                      <g transform="scale(2)">
+                        <circle style="fill:#f44336" cx="8" cy="8" r="7"/>
+                          <rect style="fill:#ffffff" width="2" height="10" x="-.98" y="-16.29" transform="rotate(135)"/>
+                          <rect style="fill:#ffffff" width="2" height="10" x="-12.29" y="-5.01" transform="rotate(-135)"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="ml-3 w-0 flex-1 pt-0.5">
+                    <p class="text-sm font-medium text-gray-900">
+                      Error
+                    </p>
+                    <p class="mt-1 text-sm text-gray-500">
+                      l'email n'existe pas 
+                    </p>
+                  </div>
+                  <div class="ml-4 flex-shrink-0 flex">
+                    <button class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <span class="sr-only">Close</span>
+                      <!-- Heroicon name: solid/x -->
+                      <svg class="h-5 w-5 close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- This example requires Tailwind CSS v2.0+ -->
-<div class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="modal">
-  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    
-    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-
-    <!-- This element is to trick the browser into centering the modal contents. -->
-    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-    <!--
-      Modal panel, show/hide based on modal state.
-
-      Entering: "ease-out duration-300"
-        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-        To: "opacity-100 translate-y-0 sm:scale-100"
-      Leaving: "ease-in duration-200"
-        From: "opacity-100 translate-y-0 sm:scale-100"
-        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-    -->
-    <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6 m-auto top-0">
-      <div>
-        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-300">
-          <!-- Heroicon name: outline/check -->
-          <i class="fas fa-key fa-2x"></i>
-        </div>
-        <div class="mt-3 text-center sm:mt-5">
-          <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-            forgot password
-          </h3>
-          <div class="mt-2">
-            <p class="text-sm text-gray-500">
-              <div class="inline-flex rounded-md shadow-sm -space-y-px w-full h-20">
-        <div class="block float-left w-1/2 h-full">
-            <div>
-              <label for="email-address" class="sr-only">Email address</label>
-              <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
-            </div>
-            <div>
-              
-              <input id="username" name="username" type="text" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="username">
-            </div>
-        </div>
-        <div>
-            <button type="submit" class="block items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-4 h-20" id='send'>
-  send
-</button>
-        </div>
-      </div>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="mt-5 sm:mt-6">
-        <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm" id="close">
-          close
-        </button>
-      </div>
-      <div aria-live="assertive" class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start hidden
-      " id="notif">
-        <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
-          <!--
-            Notification panel, dynamically insert this into the live region when it needs to be displayed
-
-            Entering: "transform ease-out duration-300 transition"
-              From: "translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-              To: "translate-y-0 opacity-100 sm:translate-x-0"
-            Leaving: "transition ease-in duration-100"
-              From: "opacity-100"
-              To: "opacity-0"
-          -->
-          <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden  transform ease-out duration-300 transition" >
-            <div class="p-4">
-              <div class="flex items-start">
-                <div class="flex-shrink-0">
-                  <!-- Heroicon name: outline/check-circle -->
-                  <svg class="h-6 w-6 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div class="ml-3 w-0 flex-1 pt-0.5">
-                  <p class="text-sm font-medium text-gray-900">
-                    Username
-                  </p>
-                  <p class="mt-1 text-sm text-gray-500">
-                    recu OK
-                  </p>
-                </div>
-                <div class="ml-4 flex-shrink-0 flex">
-                  <button class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <span class="sr-only">Close</span>
-                    <!-- Heroicon name: solid/x -->
-                    <svg class="h-5 w-5 close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-      <div aria-live="assertive" class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start hidden" id="notif-err">
-        <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
-          <!--
-            Notification panel, dynamically insert this into the live region when it needs to be displayed
-
-            Entering: "transform ease-out duration-300 transition"
-              From: "translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-              To: "translate-y-0 opacity-100 sm:translate-x-0"
-            Leaving: "transition ease-in duration-100"
-              From: "opacity-100"
-              To: "opacity-0"
-          -->
-          <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden transform ease-out duration-300 transition" id="notif">
-            <div class="p-4">
-              <div class="flex items-start">
-                <div class="flex-shrink-0">
-                  <!-- Heroicon name: outline/check-circle -->
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" version="1.1" viewBox="0 0 32 32">
- <g transform="scale(2)">
-  <circle style="fill:#f44336" cx="8" cy="8" r="7"/>
-  <rect style="fill:#ffffff" width="2" height="10" x="-.98" y="-16.29" transform="rotate(135)"/>
-  <rect style="fill:#ffffff" width="2" height="10" x="-12.29" y="-5.01" transform="rotate(-135)"/>
- </g>
-</svg>
-                </div>
-                <div class="ml-3 w-0 flex-1 pt-0.5">
-                  <p class="text-sm font-medium text-gray-900">
-                    Error
-                  </p>
-                  <p class="mt-1 text-sm text-gray-500">
-                    l'email n'existe pas 
-                  </p>
-                </div>
-                <div class="ml-4 flex-shrink-0 flex">
-                  <button class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <span class="sr-only">Close</span>
-                    <!-- Heroicon name: solid/x -->
-                    <svg class="h-5 w-5 close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-    </div>
-  </div>
-</div>
-
-<br><br><br>
-<script type="text/javascript">
-  k = document.getElementById('fpass')
-  p = document.getElementById('modal')
-  c = document.getElementById('close')
-  l = document.getElementById('send')
-  i = document.getElementById('email')
-  n = document.getElementById('notif')
-  ne = document.getElementById('notif-err')
-  cl = document.getElementsByClassName('close')
-
-  k.onclick = function () {
-    p.className = p.className.replace('hidden', 'visible')
-  }
-
-  c.onclick = function () {
-    p.className = p.className.replace('visible', 'hidden')
-  }
-
-  l.onclick = function () {
-    value = i.value
-    console.log(value)
-    xhttp = new XMLHttpRequest();
-    xhttp.open('POST', '{% url "forgot" %}', true)
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.onreadystatechange = function ()  {
-      if(this.status === 200) {
-        n.className = n.className.replace('hidden', 'visible')
-        cl[0].onclick = function () {
-          n.className = n.className.replace('visible','hidden')
-        }
-      }
-      else if(this.status === 404) {
-        ne.className = ne.className.replace('hidden', 'visible')
-        cl[1].onclick = function () {
-          ne.className = ne.className.replace('visible','hidden')
-        }
-      }
-    }
-    xhttp.send('name=' + value)
-  }
-
-
-</script>
+<script src="{% static 'home/js/login.js' %}"></script>
     
   </body>
 </html>
