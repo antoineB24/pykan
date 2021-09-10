@@ -45,7 +45,7 @@ def isset(name):
 
 
 def home(request):
-    #
+    pj
     n = open("data.dt", "r")
     
     user = request.user.is_authenticated
@@ -94,75 +94,23 @@ def home(request):
     return render(request, "home.html", locals())
 
 def login(request):
-    name_err = {
-        'name' : {},
-        'pass1': {}
-        }
+    
 
-    value_name = ''
-    value_pass1 = ''
     if request.GET.get('next') == None:
-        app = 'home'
+        app = '/home'
     else:
         app = request.GET.get('next') 
-    if request.method == "POST":
-        
-
-
-        if request.POST.get('name') == '':
-            name_err['name']['mess'] = 'il faut le champ name'
-            name_err['name']['err'] = 'invalid'
-            return render(request, "login.html", locals())
-        if len(User.objects.filter(username=request.POST.get('name'))) != 1:
-            value_name = request.POST.get('name')
-            name_err['name']['mess'] = 'nom introuvable'
-            name_err['name']['err'] = 'invalid'
-            return render(request, "login.html", locals())
-        if request.POST.get('pass1') == '':
-            
-            name_err['name']['mess'] = 'Good'
-            name_err['name']['err'] = 'valid'
-            value_name = request.POST.get('name')
-            name_err['pass1']['mess'] = 'il faut le champ pass1'
-            name_err['pass1']['err'] = 'invalid'
-            return render(request, "login.html", locals())
-        if not User.objects.get(username=request.POST.get('name')).check_password(request.POST.get('pass1')):
-            value_pass1 = request.POST.get('pass1')
-            value_name = request.POST.get('name')
-            name_err['name']['mess'] = 'Good'
-            name_err['name']['err'] = 'valid'
-            name_err['pass1']['mess'] = 'pass invalid'
-            name_err['pass1']['err'] = 'invalid'
-            return render(request, "login.html", locals())
-
-        n = User.objects.get(username=request.POST.get('name'))
-        log(request, n)
-        Action(title='Log In', from_app='home', body="tu t'est connecté", user=request.POST.get('name')).save()
-        #print(compte.name)
-        message = ("", True)
-        #client.send(bytes(compte.name))
-        if request.GET.get('next') == None:
-            return redirect('home')
-        else:
-            return redirect('http://127.0.0.1:8000' + request.GET.get('next'))
-        
+    form  = models.Login(request.POST or None)
+    if form.is_valid():
+        obj_= authenticate(username=form.cleaned_data['name'], password=form.cleaned_data['pass_'])
+        if obj_:
+            log(request, obj_)
+            return redirect('http://127.0.0.1:8000' + app)
 
     return render(request, "login.html", locals())
 def signup(request):
-    name_err = {
-        'email' : {}, 
-        'name_' : {},
-        'pass1' : {},
-        'pass2' : {}
-        }
-    value_email = ''
-    value_name_ = ''
-    value_pass1 = ''
-    value_pass2 = ''
-    dict_ = {}
     
-    start_email = True
-
+    '''
     if request.method == "POST" :
         
         if get_(request, 'email') == '': 
@@ -253,7 +201,7 @@ def signup(request):
         log(request, u)
 
         return redirect('home')
-        
+    '''
             
     return render(request, "signup.html", locals())
 

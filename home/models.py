@@ -13,9 +13,13 @@ from django import forms
 USER = ''
 USER_PASS = ''
 
+
 class Login(forms.Form):
     name = forms.CharField(max_length=50)
     pass_ = forms.CharField(max_length=50, widget=forms.PasswordInput)
+
+    
+    
     
 class Signup(forms.Form):
     name = forms.CharField(max_length=50)

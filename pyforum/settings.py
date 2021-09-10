@@ -26,9 +26,10 @@ APP_WITH_MEDIA = ['home']
 SECRET_KEY = 'django-insecure-o6m$@v*2u-g!0u7u6i((osak5on38+_9!=+z&ntf+1qg*qd1!#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
 
     'django.contrib.staticfiles',
-    
+    "crispy_forms",
+    "crispy_tailwind",
     'home',
     'forum',
     'blog',
@@ -50,6 +52,10 @@ INSTALLED_APPS = [
     'libphoto'
     
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
