@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from .models import Messenger, MessengerForm
 from home.models import  Action, Profil
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -63,7 +64,7 @@ def write(request):
             send = False
             correct = True
             try: 
-                Compte.objects.get(name=user)
+                User.objects.get(username=user)
             except:
                 print("ERREUR")
                 correct = False

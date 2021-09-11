@@ -45,7 +45,7 @@ def isset(name):
 
 
 def home(request):
-    pj
+    
     n = open("data.dt", "r")
     
     user = request.user.is_authenticated
@@ -110,7 +110,7 @@ def login(request):
     return render(request, "login.html", locals())
 def signup(request):
     
-    '''
+    name_err={}
     if request.method == "POST" :
         
         if get_(request, 'email') == '': 
@@ -201,7 +201,7 @@ def signup(request):
         log(request, u)
 
         return redirect('home')
-    '''
+    
             
     return render(request, "signup.html", locals())
 
@@ -224,17 +224,14 @@ def profil(request, idname):
 
     obj = get_object_or_404(models.Profil, id_name=idname)
     #obj = models.Compte.objects.get(id_name=idname)
-    
+    list_mess = [(i, User.objects.get(username=i.author)) for i in Messenger.objects.filter(destinataire=obj.user.username)]
     co = False
     if not err and idname == object_.profil.id_name:
         co = True
 
-    image_input = models.get_ChangeImgage()(request.POST or None, request.FILES)
-    
-    if request.method == "POST":
-        if image_input.is_valid():
-            obj.img_profil = image_input.cleaned_data['image']
-            obj.save()
+    form = models.ProfilForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
         
 
     

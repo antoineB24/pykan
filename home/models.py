@@ -61,7 +61,10 @@ class Profil(models.Model):
         return self.id_name
 
 
-
+class ProfilForm(forms.ModelForm):
+    class Meta:
+        model = Profil 
+        fields = ['comment','title','phone','location','salary','birthdays']
 
 
 

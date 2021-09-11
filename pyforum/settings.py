@@ -26,10 +26,10 @@ APP_WITH_MEDIA = ['home']
 SECRET_KEY = 'django-insecure-o6m$@v*2u-g!0u7u6i((osak5on38+_9!=+z&ntf+1qg*qd1!#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
