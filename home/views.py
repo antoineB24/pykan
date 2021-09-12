@@ -86,6 +86,8 @@ def home(request):
                 continue
             Notif(title=i.name, from_app='blog', user=obj.username, body=f'le Blog {i.name} a été créer par {i.author}').save()
         
+        task = TodoList.objects.filter(user=user)
+        
         
 
     

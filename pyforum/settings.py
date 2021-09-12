@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-APP_WITH_TEMPLATE = ['home', 'forum', 'blog', 'messenger', 'todolist', 'libphoto']
+APP_WITH_TEMPLATE = ['home', 'forum', 'blog', 'messenger', 'todolist', 'libphoto', 'ApiJson']
 APP_WITH_MEDIA = ['home']
 
 
@@ -49,13 +49,17 @@ INSTALLED_APPS = [
     'blog',
     'messenger',
     'todolist',
-    'libphoto'
+    'libphoto',
+    'corsheaders',
+    'ApiJson'
     
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
 CRISPY_TEMPLATE_PACK = "tailwind"
+CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

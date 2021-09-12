@@ -28,6 +28,7 @@ urlpatterns = [
     path('todolist/', include('todolist.urls')),
     path('libphoto/', include('libphoto.urls')),
     path('', RedirectView.as_view(url="/home/")),
+    path('apijson/', include('ApiJson.urls'))
 ]
 
 

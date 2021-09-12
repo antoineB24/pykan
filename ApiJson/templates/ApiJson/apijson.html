@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
+
+
+    <title>Api Json</title>
+    <style>
+      .gradient {
+        background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+      }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js" integrity="sha512-axJX7DJduStuBB8ePC8ryGzacZPr3rdLaIDZitiEgWWk2gsXxEFlm4UW0iNzj2h3wp5mOylgHAzBzM4nRSvTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="{% static 'ApiJson/prism.css'%}" type="text/css" rel="stylesheet"/>
+
+
+
+</head>
+<body class="leading-normal tracking-normal text-white gradient">
+      <!--Hero-->
+    <div id="app">
+      <div class="pt-24">
+        <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+          <!--Left Col-->
+          <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
+            <h1 class="my-4 text-5xl font-bold leading-tight">
+              your json api to put your information to be taken later
+
+            </h1>
+
+            <p class="leading-normal text-2xl mb-8">
+              put your non-personal data (no password) in this API then take them back when you want
+            </p>
+            <div class="flex">
+            <button class="flex mx-auto ml-5 lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" @click="show_modal_new=true">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              new data json
+            </button>
+            <button class="flex mx-auto ml-5 lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              see your link data
+            </button>
+            
+            
+          </div>
+          
+          </div>
+          <div class="fixed z-10 inset-0 overflow-y-auto " aria-labelledby="modal-title" role="dialog" aria-modal="true" v-show="show_modal_new"> 
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <!--
+                Background overlay, show/hide based on modal state.
+          
+                Entering: "ease-out duration-300"
+                  From: "opacity-0"
+                  To: "opacity-100"
+                Leaving: "ease-in duration-200"
+                  From: "opacity-100"
+                  To: "opacity-0"
+              -->
+              <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+          
+              <!-- This element is to trick the browser into centering the modal contents. -->
+              <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+          
+              <!--
+                Modal panel, show/hide based on modal state.
+          
+                Entering: "ease-out duration-300"
+                  From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                  To: "opacity-100 translate-y-0 sm:scale-100"
+                Leaving: "ease-in duration-200"
+                  From: "opacity-100 translate-y-0 sm:scale-100"
+                  To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              -->
+              <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" >
+                <div>
+                  <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-black">
+                    <!-- Heroicon name: outline/check -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+                      <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+                    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+                    </svg>
+                  </div>
+                  <div class="mt-3 text-center sm:mt-5">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                      new json api
+                    </h3>
+                    <div class="mt-2">
+                      <p class="text-sm text-gray-500">
+                        data json: 
+
+                        <textarea placeholder="Enter Json Source Code" class=" w-full px-3 py-2  border rounded-lg focus:outline-none" rows="8" v-model="value_json"></textarea>
+
+                          
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                  <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm" @click="send_json()">
+                    save
+                  </button>
+                  <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm" @click="show_modal_new=false">
+                    Cancel
+                  </button>
+                </div>
+                <div aria-live="assertive" class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start" v-show="show_notif_valid">
+                  <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+                    <!--
+                      Notification panel, dynamically insert this into the live region when it needs to be displayed
+                
+                      Entering: "transform ease-out duration-300 transition"
+                        From: "translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                        To: "translate-y-0 opacity-100 sm:translate-x-0"
+                      Leaving: "transition ease-in duration-100"
+                        From: "opacity-100"
+                        To: "opacity-0"
+                    -->
+                    <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                      <div class="p-4">
+                        <div class="flex items-start">
+                          <div class="flex-shrink-0">
+                            <!-- Heroicon name: outline/check-circle -->
+                            <svg class="h-6 w-6 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </div>
+                          <div class="ml-3 w-0 flex-1 pt-0.5">
+                            <p class="text-sm font-medium text-gray-900">
+                              object saving
+                            </p>
+                            <p class="mt-1 text-sm text-gray-500">
+                              the object is saving: id : [[id_json]]
+                            </p>
+                          </div>
+                          <div class="ml-4 flex-shrink-0 flex">
+                            <button class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                              <span class="sr-only">Close</span>
+                              <!-- Heroicon name: solid/x -->
+                              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" @click="show_notif_valid=false">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div aria-live="assertive" class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start" v-show="show_notif_invalid">
+                  <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+                    <!--
+                      Notification panel, dynamically insert this into the live region when it needs to be displayed
+                
+                      Entering: "transform ease-out duration-300 transition"
+                        From: "translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                        To: "translate-y-0 opacity-100 sm:translate-x-0"
+                      Leaving: "transition ease-in duration-100"
+                        From: "opacity-100"
+                        To: "opacity-0"
+                    -->
+                    <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                      <div class="p-4">
+                        <div class="flex items-start">
+                          <div class="flex-shrink-0">
+                            <!-- Heroicon name: outline/check-circle -->
+      
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </div>
+                          <div class="ml-3 w-0 flex-1 pt-0.5">
+                            <p class="text-sm font-medium text-gray-900">
+                              Error
+                            </p>
+                            <p class="mt-1 text-sm text-gray-500">
+                              [[msg]]
+                            </p>
+                          </div>
+                          <div class="ml-4 flex-shrink-0 flex">
+                            <button class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                              <span class="sr-only">Close</span>
+                              <!-- Heroicon name: solid/x -->
+                              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" @click="show_notif_invalid=false">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-3/5 py-6 text-center float-right">
+            <img class="w-full md:w-4/5 z-50" src="{% static 'ApiJson/hero.png' %}" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+          
+          <!--Right Col-->
+          
+        </div>
+      </div>
+      
+      <div class="relative -mt-12 lg:-mt-24">
+        <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
+              <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+              <path
+                d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
+                opacity="0.100000001"
+              ></path>
+              <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" id="Path-4" opacity="0.200000003"></path>
+            </g>
+            <g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
+              <path
+                d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"
+              ></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue"></script>  
+    <script>
+      Vue.config.devtools = true
+     const   app = new Vue({
+    el: "#app",
+    delimiters: ['[[', ']]'],
+    data: {
+        show_modal_new : false,
+        show_modal_view : false,
+        value_json : '',
+        show_notif_valid: false,
+        show_notif_invalid: false,
+        id_json: "",
+        msg: ""
+    },
+    methods: {
+      send_json: function () {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "http://localhost:8000/apijson/api/new", false)
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.onreadystatechange = function () {
+          if(this.readyState == 4 && this.status == 200) {
+            app.show_notif_valid = true 
+            app.id_json  = JSON.parse(this.response)["id"]
+            
+          }
+          else if(this.readyState == 4 && this.status == 500) {
+            app.show_notif_invalid = true
+            app.msg = JSON.parse(this.response)["msg"]
+          }
+        }
+
+        xhttp.send(`json=${this.value_json}&author={{request.user.username}}`)
+      }
+    }
+})
+
+
+   </script>
+  
+</body>
+</html>
