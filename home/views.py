@@ -16,7 +16,7 @@ from django.contrib.auth import authenticate, login as log, logout
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 from django.db.models.query_utils import DeferredAttribute
-from todolist.models import TodoList
+#from todolist.models import TodoList
 from django.db.models.fields.related_descriptors import ForeignKeyDeferredAttribute, ForwardManyToOneDescriptor
 from django.urls import reverse
 from django.core.mail import send_mail
@@ -86,7 +86,7 @@ def home(request):
                 continue
             Notif(title=i.name, from_app='blog', user=obj.username, body=f'le Blog {i.name} a été créer par {i.author}').save()
         
-        task = TodoList.objects.filter(user=user)
+        #task = TodoList.objects.filter(user=user)
         
         
 

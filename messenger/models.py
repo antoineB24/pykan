@@ -8,10 +8,8 @@ from django.forms.utils import ErrorList
 
 # Create your models here.
 
-f=open('data.dt');user=f.read();f.close();del f
-mess = (False , "")
-if not bool(user):
-    mess = (True, "vous devez vous connectez")
+
+
 
 class Messenger(models.Model):
     author = models.CharField(max_length=50)

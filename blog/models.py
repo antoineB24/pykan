@@ -4,9 +4,7 @@ from django.db.models.fields import TextField
 from django.utils import timezone
 from django import forms
 
-userFile = open("data.dt")
-user = userFile.read()
-userFile.close()
+
 
 
 

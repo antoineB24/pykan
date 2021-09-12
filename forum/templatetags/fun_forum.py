@@ -20,5 +20,4 @@ def get_img(user, compte):
 
 @register.filter
 def to_bool(var):
-    print("jjjso")
     return bool(var)
