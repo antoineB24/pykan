@@ -16,10 +16,14 @@ from django.contrib.auth import authenticate, login as log, logout
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 from django.db.models.query_utils import DeferredAttribute
-#from todolist.models import TodoList
+from todolist.models import ActionTimeTable
 from django.db.models.fields.related_descriptors import ForeignKeyDeferredAttribute, ForwardManyToOneDescriptor
 from django.urls import reverse
 from django.core.mail import send_mail
+from datetime import datetime, timedelta
+from django.utils import timezone
+from dateutil.relativedelta import relativedelta
+
 
 #import models
 
@@ -46,14 +50,28 @@ def isset(name):
 
 def home(request):
     
-    n = open("data.dt", "r")
+
     
-    user = request.user.is_authenticated
-    
-    n.close()
+    user = request.user.is_authenticated    
     obj = None
     if user:
+        time = timezone.now()
+        d1 = time
+        task = ActionTimeTable.objects.filter(
+            date_started__year=time.year,\
+            date_started__month=time.month,\
+            date_started__day=time.day
+            )
         obj = request.user
+        d2 = obj.profil.date
+        dt=d1-d2
+
+        amie = [User.objects.get(username=i) for i in obj.profil.amie.split()]
+        
+
+        d3=d2-dt
+        len_task=len(task)
+        len_mess = len(Messenger.objects.filter(author=obj.username,new=True))
         list_a = Action.objects.filter(user=obj.username).order_by('-date')
         notif = Messenger.objects.filter(destinataire=obj.username, new=True).count()
         notif_ = Messenger.objects.filter(destinataire=obj.username)
