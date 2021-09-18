@@ -20,9 +20,6 @@ from .views import messenger, read, send, write, view
 
 urlpatterns = [
     path('', messenger, name='messenger'),
-    path('send', send, name='send'),
-    path('read', read, name='read'),
-    path('write', write, name='write'),
-    path('view/<int:id>/', view, name='view')
+    path('api/new', write, name='new')
 
 ]
