@@ -1,106 +1,80 @@
-
-
-
-{% load static %}
-{% block 'signup' %}
+ {% load static %} {% block 'signup' %}
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
+/>
+
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <title>Signin</title>
 
-    
+<head>
+    <meta charset="utf-8">
+    <title>Signup</title>
+
+
 
     <!-- Bootstrap core CSS -->
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
 
-    
     <!-- Custom styles for this template -->
-    <link href="{% static 'home/signin.css' %}" rel="stylesheet">
-  </head>
-  <body class="text-center">
-    <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 m-auto top-0">
-  <div class="sm:mx-auto sm:w-full sm:max-w-md">
-    <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
-    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-      Sign up
-    </h2>
-  </div>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
+</head>
 
-  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-      <form class="space-y-6" action="#" method="POST">
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">
-            Email address
-          </label>
-          <div class="mt-1">
-            <input id="email" name="email" type="email" autocomplete="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
+<body>
+    <section class="relative py-20">
+        <img class="hidden lg:block absolute top-0 left-0 mt-16 z-10" src="https://shuffle.dev/zeus-assets/icons/dots/blue-dot-left-bars.svg" alt="">
+        <img class="hidden lg:block absolute bottom-0 right-0 mb-16" src="https://shuffle.dev/zeus-assets/icons/dots/yellow-dot-right-shield.svg" alt="">
+
+        <div class="absolute top-0 left-0 lg:bottom-0 h-128 lg:h-auto w-full lg:w-8/12 bg-gray-50"></div>
+        <div class="relative container px-4 mx-auto">
+            <div class="flex flex-wrap items-center -mx-4">
+                <div class="w-full lg:w-1/2 px-4 mb-12 lg:mb-0">
+                    <div class="max-w-lg">
+                        <h2 class="mb-10 text-4xl font-semibold font-heading">Pyforum</h2>
+                        <p class="text-xl text-gray-500">inscrivez-vous pour avoir tous les fonctionnalité qu'on vous propose</p>
+                        <a class="mt-3 text-blue-500 inline-flex items-center hover:underline hover:text-blue-600" href="{% url 'login' %}">your have a compte ? login
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                              <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                          </a><br/>
+                        <a class="mt-3 text-blue-500 inline-flex items-center hover:underline hover:text-blue-600" href="{% url 'home' %}">its a error ? go home
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                              <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                          </a>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 px-4">
+                    <div class="lg:max-w-md p-6 lg:px-10 lg:py-12 bg-white text-center border rounded-xl">
+                        <form action="#" method="POST">
+                            <span class="inline-block mb-4 text-xs text-blue-400 font-semibold">Sign Up</span>
+                            <h3 class="mb-12 text-3xl font-semibold font-heading">Create new account</h3>
+                            <div class="relative flex flex-wrap mb-6">
+                                <input class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded" type="text" placeholder="your username" name="name_">
+                                <span class="absolute top-0 left-0 ml-4 -mt-2 px-1 inline-block bg-white text-gray-500 text-xs">Your username</span>
+                            </div>
+                            <div class="relative flex flex-wrap mb-6">
+                                <input class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded" type="email" placeholder="e.g hello@pyforum.com" name="email" autocomplete="off">
+                                <span class="absolute top-0 left-0 ml-4 -mt-2 px-1 inline-block bg-white text-gray-500 text-xs">Your email address</span>
+                            </div>
+                            <div class="relative flex flex-wrap mb-6">
+                                <input class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded" type="password" placeholder="******" name="pass1">
+                                <span class="absolute top-0 left-0 ml-4 -mt-2 px-1 inline-block bg-white text-gray-500 text-xs">Password</span>
+                            </div>
+                            <div class="relative flex flex-wrap mb-6">
+                                <input class="relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded" type="password" placeholder="******" name="pass2">
+                                <span class="absolute top-0 left-0 ml-4 -mt-2 px-1 inline-block bg-white text-gray-500 text-xs">Repeat password</span>
+                            </div>
+
+                            <button class="w-full inline-block py-4 text-sm text-white font-medium leading-normal bg-blue-500 hover:bg-blue-400 rounded transition duration-200">Get Started</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-          <label for="username" class="block text-sm font-medium text-gray-700">
-            Username
-          </label>
-          <div class="mt-1">
-            <input id="username" name="name_" type="username" autocomplete="username" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
-        </div>
+    </section>
 
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700">
-            Password 1
-          </label>
-          <div class="mt-1">
-            <input id="password" name="pass1" type="password" autocomplete="current-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
-        </div>
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700">
-            Password 2
-          </label>
-          <div class="mt-1">
-            <input id="password" name="pass2" type="password" autocomplete="current-password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
-        </div>
+</body>
 
-        <div class="flex items-center justify-between w-full"><br/></div>
-
-        <div>
-          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Sign up
-          </button>
-        </div>
-      </form>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<br><br><br>
-    
-  </body>
 </html>
 {% endblock %}
-
-
-

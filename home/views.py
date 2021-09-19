@@ -65,8 +65,8 @@ def home(request):
         obj = request.user
         d2 = obj.profil.date
         dt=d1-d2
-
-        amie = [User.objects.get(username=i) for i in obj.profil.amie.split()]
+        print(obj.profil.amie.split())
+        amie = [User.objects.get(username=i) for i in obj.profil.amie.split('#') if i]
         
 
         d3=d2-dt
@@ -134,68 +134,28 @@ def signup(request):
     if request.method == "POST" :
         
         if get_(request, 'email') == '': 
-            name_err['email']['mess'] =  'il faut le champ email'
-            name_err['email']['err'] = 'invalid'
+            print("email == ''")
             start_email = False
             return render(request, "signup.html", {**locals()})
         if not re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', get_(request, 'email')):
-            name_err['email']['mess'] =  'champ email invalid'
-            name_err['email']['err'] = 'invalid'
-            start_email = False
+            print("ERROR email invalid")
             return render(request, "signup.html", {**locals()})
         if get_(request, 'name_') == '' :
-            start_email = False
-            name_err['email']['mess'] = 'Good'
-            name_err['email']['err'] = 'valid'
-            value_email = get_(request, 'email')
-            name_err['name_']['mess'] = 'Il faut le champ name'
-            name_err['name_']['err'] = 'invalid'
 
+            print("ERROR name_ == ''")
             return render(request, "signup.html", locals())
         if User.objects.filter(username=get_(request, 'name_')).count() > 0:
-            name_err['email']['mess'] = 'Good'
-            name_err['email']['err'] = 'valid'
-            value_email = get_(request, 'email')
-            value_name_ = get_(request, 'name_')
-            name_err['name_']['mess'] = 'nom déja utilisé'
-            name_err['name_']['err'] = 'invalid'
+            print("ERROR is exist")
             return render(request, "signup.html", locals())
         
         if get_(request, 'pass1') == '' : 
-            name_err['email']['mess'] = 'Good'
-            name_err['email']['err'] = 'valid'
-            value_email = get_(request, 'email')
-            name_err['name_']['mess'] = 'Good'
-            name_err['name_']['err'] = 'valid'
-            value_name_ = get_(request, 'name_')
-            name_err['pass1']['mess'] = 'Il faut le champ pass1'
-            name_err['pass1']['err'] = 'invalid'
+            print("ERROR pass1 == ''")
             return render(request, "signup.html", locals())
         if get_(request, 'pass2') == '':
-            name_err['email']['mess'] = 'Good'
-            name_err['email']['err'] = 'valid'
-            value_email = get_(request, 'email')
-            name_err['name_']['mess'] = 'Good'
-            name_err['name_']['err'] = 'valid'
-            value_name_ = get_(request, 'name_')
-            name_err['pass1']['mess'] = 'Good'
-            name_err['pass1']['err'] = 'valid'
-            value_pass1 = get_(request, 'pass1')
-            name_err['pass2']['mess'] = 'Il faut le champ pass2'
-            name_err['pass2']['err'] = 'invalid'   
+            print("ERROR pass2 == ''")
             return render(request, "signup.html", locals())
         if get_(request, 'pass1') != get_(request, 'pass2'):
-            name_err['email']['mess'] = 'Good'
-            name_err['email']['err'] = 'valid'
-            value_email = get_(request, 'email')
-            name_err['name_']['mess'] = 'Good'
-            name_err['name_']['err'] = 'valid'
-            value_name_ = get_(request, 'name_')
-            name_err['pass1']['mess'] = 'Good'
-            name_err['pass1']['err'] = 'valid'
-            value_pass1 = get_(request, 'pass1')
-            name_err['pass2']['mess'] = 'il faut un mot de pass identique'
-            name_err['pass2']['err'] = 'invalid'
+            print(f"ERROR pass1 != pass2: pass1: {get_(request, 'pass1')}, pass2: {get_(request, 'pass2')} ")
             return render(request, "signup.html", locals())
 
 
@@ -206,7 +166,7 @@ def signup(request):
         mess = ""
         inobj = False
         
-        
+        print(request.POST)
         id_ = make_id(7)
         while any(in_fun(id_, models.Profil.objects.all())):
             id_ = make_id(7)

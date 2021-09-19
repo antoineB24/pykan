@@ -1,6 +1,7 @@
 import sys
 from django import forms as form
 from django.core.checks import messages
+from django.http.response import JsonResponse
 sys.path.append('..')
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, QueryDict, Http404
@@ -9,7 +10,7 @@ from home.models import  Action, Profil
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.forms.models import model_to_dict
-from django.db.models.fields.related_descriptors import ManyToManyDescriptor
+import json, pprint
 
 # Create your views here.
 
@@ -20,7 +21,7 @@ def to_dict_data(Class):
     list_= list()
 
     for i in  Class:
-        list_.append({'message_list' : [{**model_to_dict(n), 'date': str(n.date), 'started': to_js[n.started], 'draft': to_js[n.draft], 'new': to_js[n.new]} for n in i.messages.all()], 'author': i.author, 'destinataire': i.destinataire, 'subject': i.subject})
+        list_.append({'message_list' : [{**model_to_dict(n), 'date': str(n.date), 'started': to_js[n.started], 'draft': to_js[n.draft], 'new': to_js[n.new], 'img_src': User.objects.get(username=n.author).profil.img_profil.url} for n in i.messages.all()], 'author': i.author, 'destinataire': i.destinataire, 'subject': i.subject})
     return {'list': list_}
 @login_required
 def messenger(request):
@@ -89,12 +90,22 @@ def write(request):
             contenue=''
         groupmsg = GroupMsg(author=request.user, destinataire=author, subject=sujet)
         groupmsg.save()
-        groupmsg.messages.create(author=author, sujet=sujet, body=contenue)
+        groupmsg.messages.create(author=request.user.username, sujet=sujet, body=contenue)
 
 
 
     return HttpResponse('')
 
-def view(request, id):
-    obj = get_object_or_404(Messenger, id=id)
-    return render(request, 'view.html', locals())
+def reply(request):
+    if request.method == "POST":
+        data = request.body.decode()
+        query = QueryDict(data)
+        actual_mess = json.loads(query.get('actual_mess'))
+        l=Messenger.objects.get(id=int(actual_mess['message_list'][0]['id'])).groupmsg_set.all()
+        l[0].messages.create(body=query.get("reply"), author=request.user.username,
+         destinataire=actual_mess['message_list'][0]['destinataire'],
+         sujet=actual_mess['subject'])
+        
+
+
+    return JsonResponse({})

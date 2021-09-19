@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load utils %}
 <html>
 
 <head>
@@ -14,10 +14,11 @@
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title>ValuedSeed - Dashboard</title>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine.js" integrity="sha512-nIwdJlD5/vHj23CbO2iHCXtsqzdTTx3e3uAmpTm4x2Y8xCIFyWu4cSIV8GaGe2UNVq86/1h9EgUZy7tn243qdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script defer src="https://unpkg.com/alpinejs@3.3.2/dist/cdn.min.js"></script>
         </head>
+        {% now 'd/m/Y' as date %}
 
-        <body class="h-screen flex flex-col" x-data="{openEventModal : false, user:'', 'subject':'', contenue: '',messages: null,click_msg: false,data_msg: {{dict|safe}},
+        <body class="h-screen flex flex-col" x-data="{openEventModal : false, user:'', 'subject':'', contenue: '',messages: null,click_msg: false,data_msg: {{dict|safe}},reply_msg: '',
     send_mess() {
         
 
@@ -38,7 +39,21 @@ xhttp.send(`user=${this.user}&object=${this.subject}&contenue=${this.contenue}`)
 
     }, show_mess() {
         this.click_msg=true
-}}">
+}, reply() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('POST', 'http://127.0.0.1:8000/messenger/api/reply', false);
+    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhttp.onreadystatechange = function() {
+        if(this.status==200 && this.readyState==4) {
+            console.log('OK reply')
+        }
+    }
+
+    xhttp.send(`actual_mess=${JSON.stringify(this.messages)}&reply=${this.reply_msg}`)
+    this.messages.message_list.push({author: '{{request.user.username}}', destinataire: this.messages.destinataire, date: '{{date}}', body: this.reply_msg, draft: 0, new: 0, started: 0, img_src: '{{request.user.profil.img_profil.url}}' })
+    this.reply_msg = ''
+}
+}">
             <header class="flex flex-shrink-0">
                 <div class="w-64 flex-shrink-0 px-4 py-3 bg-gray-800">
                     <button class=" w-full flex items-center">
@@ -166,7 +181,7 @@ xhttp.send(`user=${this.user}&object=${this.subject}&contenue=${this.contenue}`)
                         </div>
                         <div class="flex-1 overflow-y-auto">
                             <template x-for='i in data_msg.list'>
-                            <a href="#" class="block px-6 pt-3 pb-4 bg-white hover:bg-gray-100" @click="messages=i">
+                            <a href="#" class="block px-6 pt-3 pb-4 bg-white hover:bg-gray-100" @click="messages=i;reply_msg=''">
                                 <div class="flex justify-between">
                                     <span class="text-sm font-semibold text-gray-900" x-text="i.subject"></span> 
                                 </div>
@@ -210,126 +225,90 @@ xhttp.send(`user=${this.user}&object=${this.subject}&contenue=${this.contenue}`)
                             </div>
                         </div>
                         <div class="p-3 flex-1 overflow-y-auto">
-                            <article class="px-10 pt-6 pb-8 bg-white rounded-lg shadow">
+                            <template x-for="p in messages.message_list">
+                            <article class="px-10 pt-6 pb-8 bg-white rounded-lg shadow my-3">
                                 <div class="flex items-center justify-between">
                                     <p class="text-lg font-semibold">
-                                        <span class="text-gray-900">Masturah Adam</span>
+                                        <span class="text-gray-900"  x-text="p.author">hello</span>
                                         <span class="text-gray-600">wrote</span>
                                     </p>
                                     <div class="flex items-center">
-                                        <span class="text-xs text-gray-600">Yesterday at 7:24 AM</span>
-                                        <img class="ml-5 h-8 w-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
+                                        <span class="text-xs text-gray-600" x-text="p.date"></span>
+                                        <img class="ml-5 h-8 w-8 rounded-full object-cover" :src="p.img_src">
                                     </div>
                                 </div>
                                 <div class="mt-6 text-gray-800 text-sm">
-                                    <p>Thanks so much!! Can't wait to try it out :)</p>
+                                    <p x-text="p.body"></p>
                                 </div>
                             </article>
-                            <article class="mt-3 px-10 pt-6 pb-8 bg-white rounded-lg shadow">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-lg font-semibold">
-                                        <span class="text-gray-900">Akanbi Lawal</span>
-                                        <span class="text-gray-600">wrote</span>
-                                    </p>
-                                    <div class="flex items-center">
-                                        <span class="text-xs text-gray-600">Yesterday at 7:24 AM</span>
-                                        <img class="ml-5 h-8 w-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=144&q=80">
-                                    </div>
-                                </div>
-                                <div class="mt-6 text-gray-800 text-sm">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </p>
-                                    <p class="mt-4">
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                    <p class="mt-4 font-semibold text-gray-900">Akanbi Lawal</p>
-                                    <p>Customer Service</p>
-                                </div>
+                            </template>
+                    <div class="mt-6">
+                        <textarea class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" rows="4" id="reply" placeholder="your message" x-model="reply_msg"></textarea>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="reply">
+                                      send
+                                  </button>
 
-                            </article>
-
-                            <div style=" background-color: rgba(0, 0, 0, 0.8)" class="fixed z-40 top-0 right-0 left-0 bottom-0 h-full w-full" x-show.transition.opacity="openEventModal">
-                                <div class="p-4 max-w-xl mx-auto relative  left-0 right-0 overflow-hidden mt-24">
-                                    <div class="shadow absolute right-0 top-0 w-10 h-10 rounded-full bg-white text-gray-500 hover:text-gray-800 inline-flex items-center justify-center cursor-pointer" x-on:click="openEventModal = !openEventModal">
-                                        <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path
-                            d="M16.192 6.344L11.949 10.586 7.707 6.344 6.293 7.758 10.535 12 6.293 16.242 7.707 17.656 11.949 13.414 16.192 17.656 17.606 16.242 13.364 12 17.606 7.758z" />
-                        </svg>
-                                    </div>
+                    </div>
 
 
-                                    <div class="shadow  rounded-lg bg-white overflow-hidden w-full block p-8">
 
-                                        <h2 class="font-bold text-2xl mb-6 text-gray-800 border-b pb-2">New message</h2>
 
-                                        <div class="mb-4">
-                                            <label class="text-gray-800 block mb-1 font-bold text-sm tracking-wide">To: </label>
-                                            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" x-model="user">
-                                        </div>
 
-                                        <div class="mb-4">
-                                            <label class="text-gray-800 block mb-1 font-bold text-sm tracking-wide">Object</label>
-                                            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" x-model="subject">
-                                        </div>
 
-                                        <div class="inline-block w-64 mb-4">
-                                            <label class="text-gray-800 block mb-1 font-bold text-sm tracking-wide">Your contenue</label>
-                                            <div class="relative">
-                                                <textarea class="bg-gray-200 appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" x-model="contenue"></textarea>
 
-                                            </div>
-                                        </div>
 
-                                        <div class="mt-8 text-right">
-                                            <button type="button" class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-lg shadow-sm mr-2" @click="openEventModal = !openEventModal">
-                                              Cancel
-                                            </button>
-                                            <button type="button" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 border border-gray-700 rounded-lg shadow-sm" @click="send_mess();openEventModal = !openEventModal">
-                                              save message
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <article class="mt-3 px-10 pt-6 pb-8 bg-white rounded-lg shadow">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-lg font-semibold">
-                                        <span class="text-gray-900">Masturah Adam</span>
-                                        <span class="text-gray-600">wrote</span>
-                                    </p>
-                                    <div class="flex items-center">
-                                        <span class="text-xs text-gray-600">Yesterday at 7:24 AM</span>
-                                        <img class="ml-5 h-8 w-8 rounded-full object-cover" src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
-                                    </div>
-                                </div>
-                                <div class="mt-6 text-gray-800 text-sm">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </p>
-                                    <p class="mt-4">
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                    <p class="mt-4 font-semibold text-gray-900">Masturah Abiola</p>
-                                    <p>Customer Service</p>
-                                </div>
-                            </article>
-                            <div class="mt-6">
-                                <textarea class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" rows="4" id="reply" placeholder="your message"></textarea>
-                            </div>
-                            <div class="mt-3">
-                                <button type="button" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                  send
-                              </button>
+            </div>
+
+            </div>
+            </template>
+            <div style=" background-color: rgba(0, 0, 0, 0.8)" class="fixed z-40 top-0 right-0 left-0 bottom-0 h-full w-full" x-show.transition.opacity="openEventModal">
+                <div class="p-4 max-w-xl mx-auto relative  left-0 right-0 overflow-hidden mt-24">
+                    <div class="shadow absolute right-0 top-0 w-10 h-10 rounded-full bg-white text-gray-500 hover:text-gray-800 inline-flex items-center justify-center cursor-pointer" x-on:click="openEventModal = !openEventModal">
+                        <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path
+                    d="M16.192 6.344L11.949 10.586 7.707 6.344 6.293 7.758 10.535 12 6.293 16.242 7.707 17.656 11.949 13.414 16.192 17.656 17.606 16.242 13.364 12 17.606 7.758z" />
+                </svg>
+                    </div>
+
+
+                    <div class="shadow  rounded-lg bg-white overflow-hidden w-full block p-8">
+
+                        <h2 class="font-bold text-2xl mb-6 text-gray-800 border-b pb-2">New message</h2>
+
+                        <div class="mb-4">
+                            <label class="text-gray-800 block mb-1 font-bold text-sm tracking-wide">To: </label>
+                            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" x-model="user">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="text-gray-800 block mb-1 font-bold text-sm tracking-wide">Object</label>
+                            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" x-model="subject">
+                        </div>
+
+                        <div class="inline-block w-64 mb-4">
+                            <label class="text-gray-800 block mb-1 font-bold text-sm tracking-wide">Your contenue</label>
+                            <div class="relative">
+                                <textarea class="bg-gray-200 appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" x-model="contenue"></textarea>
 
                             </div>
+                        </div>
 
+                        <div class="mt-8 text-right">
+                            <button type="button" class="bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-lg shadow-sm mr-2" @click="openEventModal = !openEventModal">
+                                      Cancel
+                                    </button>
+                            <button type="button" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 border border-gray-700 rounded-lg shadow-sm" @click="send_mess();openEventModal = !openEventModal">
+                                      save message
+                                    </button>
                         </div>
                     </div>
-                    </template>
-                </main>
-                {% endblock %}
+                </div>
+            </div>
+            </main>
+            {% endblock %}
 
             </div>
         </body>

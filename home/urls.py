@@ -19,10 +19,11 @@ from django.urls import path, include
 from .views import home, login, signup, deconecte, profil, add_amie,forgot
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('', home, name='home'),
-    path('login', login, name='login'),
+    path('login/', login, name='login'),
     path('signup', signup, name='signup'),
     path('logout', deconecte, name='deconecte'),
     path('profil/<path:idname>/', profil, name='profil'),
