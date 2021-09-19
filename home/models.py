@@ -15,8 +15,15 @@ USER_PASS = ''
 
 
 class Login(forms.Form):
-    name = forms.CharField(max_length=50)
-    pass_ = forms.CharField(max_length=50, widget=forms.PasswordInput)
+    name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={
+        'class' : 'relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded',
+        'placeholder' : 'your username'
+    }))
+    pass_ = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
+    'class' : 'relative mb-2 md:mb-0 w-full py-4 pl-4 text-sm border rounded', 
+    'placeholder': '****'
+    }
+    ))
 
     
     
@@ -64,7 +71,7 @@ class Profil(models.Model):
 class ProfilForm(forms.ModelForm):
     class Meta:
         model = Profil 
-        fields = ['comment','title','phone','location','salary','birthdays']
+        fields = ['comment','title','phone','location','salary','birthdays', 'img_profil']
 
 
 
