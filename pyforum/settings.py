@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+
+import dj_database_url
+
 import os
 from pathlib import Path
 
@@ -23,13 +26,26 @@ APP_WITH_MEDIA = ['home']
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o6m$@v*2u-g!0u7u6i((osak5on38+_9!=+z&ntf+1qg*qd1!#'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.environ.get("SECRET_KEY", "<j`IT9=<{nVvFpo")
 
 
-ALLOWED_HOSTS = []
+if os.environ.get("ENV") == "DEV":
+    DEBUG = True
+    ALLOWED_HOSTS = []
+elif os.environ.get("ENV") == "PRODUCTION":
+    
+    DEBUG = False 
+    ALLOWED_HOSTS = ["pyforum.herokuapp.com"]
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+    # Extra places for collectstatic to find static files.
+    STATICFILES_DIRS = (
+        os.path.join(PROJECT_ROOT, 'static'),
+    )
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 
 # Application definition
@@ -71,6 +87,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'pyforum.urls'
@@ -105,6 +122,9 @@ DATABASES = {
     }
 }
 
+if os.environ.get("ENV") == "PRODUCTION":
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

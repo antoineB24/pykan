@@ -1,0 +1,5 @@
+  author                                            comment  ...   parta  title
+0   PP99                    ndd              \r\n       ...  ...  AZERTY       
+
+[1 rows x 7 columns]
+[{"model": "ApiJson.apijson", "pk": 1, "fields": {"author": "PP99", "id_json": "ejji1tV2mrYxmAgnIealwObqsXeldY", "date": "2021-09-11T19:42:00.012Z", "body": {"a": 5}}}, {"model": "ApiJson.apijson", "pk": 2, "fields": {"author": "PP99", "id_json": "a2LeOEnUr4Wu9Cax1ghlfy6nYPYOqM", "date": "2021-09-12T18:19:04.888Z", "body": {"e": 8}}}, {"model": "ApiJson.apijson", "pk": 3, "fields": {"author": "PP99", "id_json": "Jv22LbU65YYN0ixRngPyjixUuMZ4Pj", "date": "2021-09-12T18:20:44.123Z", "body": {"coucou": 8}}}, {"model": "ApiJson.apijson", "pk": 4, "fields": {"author": "PP99", "id_json": "mMeXfYXG49e8INxCOqXmHBJ6qBKf5n", "date": "2021-09-12T18:20:49.217Z", "body": {"coucou": 8}}}, {"model": "ApiJson.apijson", "pk": 5, "fields": {"author": "PP99", "id_json": "8Dr1nZMeYavcNiaepbO5d0ZAMHt84L", "date": "2021-09-17T15:40:22.926Z", "body": {"hello": 8}}}]
