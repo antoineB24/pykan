@@ -24,11 +24,7 @@ def create_blog(request):
     formblog = getBlogForm(user.username)(request.POST or None)
     if formblog.is_valid():
         if not mess[0]:
-            Action(
-                title=formblog.cleaned_data['name'],
-                from_app='blog',
-                user=user.username,
-                body=f'''vous avez crée le blog {formblog.cleaned_data['name']}''').save()
+
             Blog(name=formblog.cleaned_data['name'], author=user.username, body=formblog.cleaned_data['body'], idblog=mk_id_b(9)).save()
             return redirect(to='http://127.0.0.1:8000/blog/')
 
@@ -49,10 +45,7 @@ def blog(request):
     range1 = Blog.objects.all()
     range2 = ForumBlog.objects.all()
 
-    local = locals()
-    local.update({'mess': mess})
-    local.update({'messErr': messErr})
-    print(locals())
+
     return render(request, "blog.html", locals())
 
 def write_mess(request):

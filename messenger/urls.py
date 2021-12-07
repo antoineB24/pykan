@@ -15,12 +15,12 @@ Including another URLconf
 """
 
 from django.urls import path
-from .views import messenger, reply,  write
+from .views import messenger, Reply,  write
 
 
 urlpatterns = [
     path('', messenger, name='messenger'),
     path('api/new', write, name='new'),
-    path('api/reply',  reply, name='reply')
+    path('api/reply',  Reply.as_view(), name='reply')
 
 ]

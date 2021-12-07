@@ -32,12 +32,7 @@ def forum(request):
         author = forum_form.cleaned_data['author']
         author = user.username
         mess = forum_form.cleaned_data['mess']
-        Action(
-            title='Forum',
-            from_app='forum',
-            user=user,
-            body="vous avez posté un message"
-            ).save()
+
         Forum(user=author, mess=mess).save()
 
     forum = Forum.objects.all()

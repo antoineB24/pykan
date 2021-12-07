@@ -29,10 +29,10 @@ APP_WITH_MEDIA = ['home']
 SECRET_KEY = os.environ.get("SECRET_KEY", "<j`IT9=<{nVvFpo")
 
 
-if os.environ.get("ENV") == "DEV":
+if os.environ.get("ENV") == "dev":
     DEBUG = True
     ALLOWED_HOSTS = []
-elif os.environ.get("ENV") == "PRODUCTION":
+elif os.environ.get("ENV") == "production":
     
     DEBUG = False 
     ALLOWED_HOSTS = ["pyforum.herokuapp.com"]
