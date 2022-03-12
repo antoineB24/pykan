@@ -107,7 +107,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pyforum.wsgi.application'
+# WSGI_APPLICATION = 'pyforum.wsgi.application'
 
 
 # Database
