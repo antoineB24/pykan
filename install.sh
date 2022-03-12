@@ -7,7 +7,7 @@ GIT_IS_AVAILABLE=$?
 if [ $GIT_IS_AVAILABLE -eq 0 ]; then
     git clone https://github.com/antoineB24/pyforum.git 
     cd pyforum 
-    ./build_pyforum.sh 
+    sh build_pyforum.sh 
 
 else 
     echo "FAIL git is not installed"
