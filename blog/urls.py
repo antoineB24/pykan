@@ -24,5 +24,5 @@ urlpatterns = [
     path('main', RedirectView.as_view(pattern_name='blog')),
     path('create_blog', create_blog, name='create_blog'),
     path('write_mess', write_mess, name='write_mess'),
-    path('blog_global/<str:idblog>', go_blog,name='')
+    path('id/<str:idblog>', go_blog,name='')
 ]
