@@ -1,5 +1,0 @@
-  author                                            comment  ...   parta  title
-0   PP99                    ndd              \r\n       ...  ...  AZERTY       
-
-[1 rows x 7 columns]
-[{"model": "blog.blog", "pk": 1, "fields": {"name": "PP99", "author": "PP99", "date": "2021-08-26T17:11:52.676Z", "body": "hr", "idblog": "ebzb8i8ph"}}]

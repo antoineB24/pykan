@@ -2,11 +2,11 @@ import sys
 sys.path.append('..')
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from .models import *
 from home.models import   Action, Profil
-from django.contrib.auth.models import User
-import random as r, string as s
+from django.contrib.auth.decorators import login_required
+import random as r
+
 
 
 mess = (False, "")
@@ -15,12 +15,12 @@ messErr = (False, "")
 MyZip = lambda a,b: [(a[i], b[i]) for i in range(len(a))]
 mk_id_b = lambda l: ''.join([r.choice('azertyuiopqsdfghjklmwxcvbn1234567890') for i in range(l)])
 
+@login_required
 def create_blog(request):
     mess = (False, "")
     user = request.user
-    if not user.is_authenticated:
-        mess = (True, "Erreur: Vous ne pouvez pas écrire sans vous connectez")
-    obj1 = user.profil
+
+    err = request.user.is_authenticated
     formblog = getBlogForm(user.username)(request.POST or None)
     if formblog.is_valid():
         if not mess[0]:
@@ -30,20 +30,7 @@ def create_blog(request):
 
     return render(request, 'create_blog.html', locals())
 def blog(request):    
-    user = request.user
-
-    err = not user.is_authenticated
-    if user.is_authenticated:
-        obj = user.profil
-        idname = obj.id_name
-   
-
-    body_blog = Blog.objects.all()
     
-    body_blog_forum = ForumBlog.blog
-    
-    range1 = Blog.objects.all()
-    range2 = ForumBlog.objects.all()
 
 
     return render(request, "blog.html", locals())

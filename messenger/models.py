@@ -1,9 +1,7 @@
-import sys
-#sys.path.append('../home')
+
 from django.db import models
 from django.utils import timezone
 from django import forms
-from django.forms.utils import ErrorList
 
 
 # Create your models here.

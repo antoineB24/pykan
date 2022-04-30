@@ -22,12 +22,12 @@ to_js = {True: 1, False: 0}
 def to_dict_data(_class):
     dict_ = dict()
     list_ = list()
-
+    
     for i in _class:
         list_.append({'message_list': [
             {**model_to_dict(n), 'date': str(n.date), 'started': to_js[n.started], 'draft': to_js[n.draft],
              'new': to_js[n.new], 'img_src': User.objects.get(username=n.author).profil.img_profil.url} for n in
-            i.messages.all()], 'author': i.author, 'destinataire': i.destinataire, 'subject': i.subject})
+            i.messages.all() if not User.objects.get(username=n.author).is_staff], 'author': i.author, 'destinataire': i.destinataire, 'subject': i.subject})
     return {'list': list_}
 
 

@@ -29,22 +29,10 @@ APP_WITH_MEDIA = ['home']
 SECRET_KEY = os.environ.get("SECRET_KEY", "<j`IT9=<{nVvFpo")
 
 
-if os.environ.get("ENV") == "dev":
-    DEBUG = True
-    ALLOWED_HOSTS = []
-elif os.environ.get("ENV") == "production":
-    
-    DEBUG = False 
-    ALLOWED_HOSTS = ["pyforum.herokuapp.com"]
-    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-
-    # Extra places for collectstatic to find static files.
-    STATICFILES_DIRS = (
-        os.path.join(PROJECT_ROOT, 'static'),
-    )
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEBUG = False
+if not DEBUG:
+    ALLOWED_HOSTS = ["0.0.0.0:8000"]
 
 
 
@@ -81,7 +69,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

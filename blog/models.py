@@ -16,6 +16,7 @@ class Blog(models.Model):
     date = models.DateTimeField(verbose_name="date Blog", default=timezone.now)
     body = models.TextField(max_length=800)
     idblog = models.CharField(max_length=20)
+    typeblog = models.CharField(max_length=20, choices=(("tech", "tech"), ("sport", "sport"), ("politique", "politique"), ("culture", "culture"), ("autre", "autre")))
     class Meta:
         verbose_name = "Blog"
         ordering = ['date']
